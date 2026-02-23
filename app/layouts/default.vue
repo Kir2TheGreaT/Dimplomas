@@ -50,8 +50,17 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
 }
 
 .header {
-  margin: 0 auto auto;
   position: sticky;
+  top: 0;
+  z-index: 100;
+
   width: 100%;
+  max-width: 1440px;
+
+  margin-left: auto;
+  margin-right: auto;
+
+  left: 0;
+  right: 0;
 }
 </style>

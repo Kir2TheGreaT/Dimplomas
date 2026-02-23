@@ -231,9 +231,6 @@ const goCategory = (id: number) => {
     width: 100%;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    @media (min-width: 542px) {
-      justify-content: space-between;
-    }
     @media (min-width: 1440px) {
       padding-top: 2.5rem;
       padding-bottom: 2.5rem;

@@ -1,0 +1,40 @@
+:root {
+  font-family: "Plus Jacarta Sans", sans-serif;
+  --container-max-width: auto;
+  --rem: 16px;
+}
+
+body {
+  margin: 0;
+  border: 0;
+  box-sizing: border-box;
+  background-color: var(--backgroundpages);
+  color: var(--secondary-500);
+  padding: 0;
+  transition: background-color 0.5s ease;
+}
+
+button {
+  border: none;
+  background-color: transparent;
+
+  margin: 0;
+  padding: 0;
+  cursor: pointer;
+}
+*:focus,
+*:active,
+button:focus,
+button:active,
+.favorite-nav-btn:focus,
+.favorite-nav-btn:active {
+  outline: none;
+  -webkit-tap-highlight-color: transparent;
+  box-shadow: none;
+}
+
+button {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  user-select: none;
+}

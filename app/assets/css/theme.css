@@ -1,0 +1,85 @@
+/* Light theme */
+* {
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+:root {
+  --backgroundpages: #f6f7f9;
+  --borderColor: #c3d4e9;
+  --categoryTheme: #f3f5f7;
+  --badgeColor: #ff4423;
+  --primary-900: rgba(10, 25, 111, 1);
+  --primary-800: rgba(16, 37, 135, 1);
+  --primary-700: rgba(26, 55, 167, 1);
+  --primary-600: rgba(38, 75, 200, 1);
+  --primary-500: rgba(53, 99, 233, 1);
+  --primary-400: rgba(101, 141, 241, 1);
+  --primary-300: rgba(133, 168, 248, 1);
+  --primary-200: rgba(174, 200, 252, 1);
+  --primary-100: rgba(214, 228, 253, 1);
+  --primary-0: rgba(255, 255, 255, 1);
+
+  --success-900: rgba(59, 101, 6, 1);
+  --success-800: rgba(76, 122, 11, 1);
+  --success-700: rgba(101, 151, 17, 1);
+  --success-600: rgba(127, 181, 25, 1);
+  --success-500: rgba(156, 211, 35, 1);
+  --success-400: rgba(188, 228, 85, 1);
+  --success-300: rgba(211, 241, 120, 1);
+  --success-200: rgba(232, 250, 166, 1);
+  --success-100: rgba(245, 252, 210, 1);
+
+  --error-900: rgba(122, 6, 25, 1);
+  --error-800: rgba(147, 11, 22, 1);
+  --error-700: rgba(183, 17, 18, 1);
+  --error-600: rgba(219, 39, 25, 1);
+  --error-500: rgba(255, 68, 35, 1);
+  --error-400: rgba(255, 127, 89, 1);
+  --error-300: rgba(255, 163, 122, 1);
+  --error-200: rgba(255, 200, 166, 1);
+  --error-100: rgba(255, 231, 211, 1);
+
+  --warning-900: rgba(122, 77, 11, 1);
+  --warning-800: rgba(147, 99, 18, 1);
+  --warning-700: rgba(183, 130, 29, 1);
+  --warning-600: rgba(219, 163, 42, 1);
+  --warning-500: rgba(255, 199, 58, 1);
+  --warning-400: rgba(255, 217, 107, 1);
+  --warning-300: rgba(255, 228, 136, 1);
+  --warning-200: rgba(255, 239, 176, 1);
+  --warning-100: rgba(255, 248, 215, 1);
+
+  --information-900: rgba(16, 46, 122, 1);
+  --information-800: rgba(26, 67, 147, 1);
+  --information-700: rgba(42, 96, 183, 1);
+  --information-600: rgba(61, 129, 219, 1);
+  --information-500: rgba(84, 166, 255, 1);
+  --information-400: rgba(126, 194, 255, 1);
+  --information-300: rgba(152, 211, 255, 1);
+  --information-200: rgba(186, 229, 255, 1);
+  --information-100: rgba(220, 243, 255, 1);
+
+  --secondary-900: rgba(4, 8, 21, 1);
+  --secondary-800: rgba(8, 12, 25, 1);
+  --secondary-700: rgba(13, 18, 31, 1);
+  --secondary-600: rgba(19, 24, 37, 1);
+  --secondary-500: rgba(26, 32, 44, 1);
+  --secondary-400: rgba(89, 103, 128, 1);
+  --secondary-300: rgba(144, 163, 191, 1);
+  --secondary-200: rgba(195, 212, 233, 1);
+  --secondary-100: rgba(224, 233, 244, 1);
+}
+
+.dark {
+  --backgroundpages: var(--secondary-900);
+  --categoryTheme: var(--secondary-800);
+  --borderColor: var(--secondary-700);
+
+  --primary-0: var(--secondary-800);
+  --secondary-500: #ffffff;
+  --secondary-400: var(--secondary-200);
+  --secondary-300: var(--secondary-400);
+
+  --primary-500: rgba(84, 126, 250, 1);
+}

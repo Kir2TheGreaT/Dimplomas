@@ -44,7 +44,9 @@ const product = computed(() => products.find((p) => p.id === productId));
   .paymentData {
     display: flex;
     flex-direction: column;
-    padding: 2rem;
+    padding-top: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
     @media (min-width: 375px) and (max-width: 1439px) {
       display: flex;
       order: 2;
@@ -67,7 +69,6 @@ const product = computed(() => products.find((p) => p.id === productId));
   }
   .cardPaymentData {
     padding-top: 2rem;
-    padding-right: 2rem;
     @media (min-width: 375px) and (max-width: 1439px) {
       display: flex;
       order: 1;

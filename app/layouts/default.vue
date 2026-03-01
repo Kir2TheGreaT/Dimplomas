@@ -45,7 +45,7 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
   margin: 0 auto;
   background-color: var(--backgroundpages);
   @media (min-width: 1440px) {
-    max-width: 1920px;
+    max-width: 1410px;
   }
 }
 
@@ -63,5 +63,8 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
   left: 0;
   right: 0;
   border-bottom: 1px var(--borderColor) solid;
+}
+.footerLayout {
+  max-width: 1410px;
 }
 </style>

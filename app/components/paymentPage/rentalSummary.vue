@@ -94,7 +94,6 @@ const totalText = computed(() =>
 <style scoped>
 .mainRentalSummary {
   background-color: var(--primary-0);
-  max-width: 492px;
   border-radius: 10px;
   .headerSummary {
     padding-top: 1.5rem;

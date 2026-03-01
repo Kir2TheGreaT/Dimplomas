@@ -26,7 +26,6 @@
             <favorites-dropdown
               :is-open="isFavoritesOpen"
               @close="isFavoritesOpen = false"
-              class="favorites-dropdown"
               :anchor="favoritesButton"
             />
           </button>

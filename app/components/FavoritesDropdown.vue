@@ -54,7 +54,7 @@
 <script lang="ts" setup>
 import { useFavorites } from "~/stores/favorites";
 import { products } from "~~/data/products";
-import { computed } from "vue";
+import { computed, ref, watch, nextTick, onMounted, onUnmounted } from "vue";
 import Close from "./icons/accountIcons/favoritesIcons/close.vue";
 import Trash from "./icons/accountIcons/favoritesIcons/trash.vue";
 
@@ -78,6 +78,7 @@ const handleClickOutside = (event: MouseEvent) => {
 onMounted(() => {
   window.addEventListener("mousedown", handleClickOutside);
   window.addEventListener("scroll", updatePosition);
+  window.addEventListener("resize", updatePosition);
 });
 
 onUnmounted(() => {
@@ -125,11 +126,21 @@ const dropdownStyle = ref({
 });
 
 const updatePosition = () => {
-  if (!props.anchor) return;
-  const react = props.anchor.getBoundingClientRect();
+  if (!props.anchor || !props.isOpen) return;
+  const dropdownWidth = 325;
+  const padding = 16;
+
+  const rect = props.anchor.getBoundingClientRect();
+  let left = rect.right - dropdownWidth;
+  if (left < padding) {
+    left = padding;
+  }
+  if (left + dropdownWidth > window.innerWidth - padding) {
+    left = window.innerWidth - dropdownWidth - padding;
+  }
   dropdownStyle.value = {
-    top: `${react.bottom + window.scrollY + 8}px`,
-    left: `${react.right - 300 + window.scrollX}px`,
+    top: `${rect.bottom + window.scrollY + 8}px`,
+    left: `${left}px`,
   };
 };
 watch(
@@ -144,7 +155,7 @@ watch(
 
 <style scoped>
 .favorites-dropdown {
-  position: absolute;
+  position: fixed;
   width: 300px;
   background-color: var(--primary-0);
   border-radius: 12px;

@@ -59,7 +59,7 @@ watch(isSidebarOpen, (value) => {
   display: flex;
   flex-direction: row;
   gap: 2rem;
-  @media (min-width: 1px) and (max-width: 1280px) {
+  @media (min-width: 1px) and (max-width: 800px) {
     flex-direction: column;
   }
   .accountDashBoard {

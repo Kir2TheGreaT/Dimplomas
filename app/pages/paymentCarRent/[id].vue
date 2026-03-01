@@ -38,9 +38,6 @@ const product = computed(() => products.find((p) => p.id === productId));
     display: flex;
     flex-direction: column;
   }
-  @media (min-width: 1440px) {
-    border-top: 1px var(--borderColor) solid;
-  }
   @media (min-width: 1280px) and (max-width: 1439px) {
     flex-direction: row-reverse;
   }

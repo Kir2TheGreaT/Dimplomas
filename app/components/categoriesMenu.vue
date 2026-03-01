@@ -153,21 +153,12 @@ watch(
 </script>
 
 <style scoped>
-.scale-enter-active,
-.scale-leave-active {
-  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-.scale-enter-from,
-.scale-leave-to {
-  opacity: 0;
-  transform: scale(0.5);
-}
 .mainPartCategories {
   background-color: var(--categoryTheme);
   display: flex;
   flex-direction: column;
   gap: 3.5rem;
+  background-color: var(--primary-0);
   .typeCategoriesMenu {
     display: flex;
     flex-direction: column;
@@ -292,7 +283,6 @@ watch(
           background-color: var(--primary-500);
           border-color: var(--primary-500);
           color: var(--primary-500);
-
         }
 
         .checkbox-box svg {
@@ -394,5 +384,15 @@ watch(
       padding-bottom: 2rem;
     }
   }
+}
+.scale-enter-active,
+.scale-leave-active {
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.scale-enter-from,
+.scale-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
 }
 </style>

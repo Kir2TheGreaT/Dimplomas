@@ -1,7 +1,7 @@
 <template>
   <div class="mainPageProjectMap">
     <div class="topProjectMap">Details Rental</div>
-    <div v-if="!yandexMapIsLoaded">
+    <div v-if="!yandexMapIsLoaded" class="fakeMap">
       <img src="/maps/Maps.png" alt="" />
     </div>
 
@@ -50,11 +50,11 @@ const zoom = ref(10);
     font-size: 1.25rem;
   }
   img {
-    max-width: 486px;
-    max-height: 272px;
+    width: 486px;
+    height: 272px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    @media (min-width: 1px) {
+    @media (min-width: 1px) and (max-width: 1440px) {
       max-width: 295px;
       max-height: 272px;
     }

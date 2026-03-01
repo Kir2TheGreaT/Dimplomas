@@ -41,7 +41,10 @@
         <Case></Case>
         <h6>Dark Mode</h6>
         <div class="theme-toggle-container">
-          <button class="theme" @click="toggleTheme(isDarkMode ? 'light' : 'dark')">
+          <button
+            class="theme"
+            @click="toggleTheme(isDarkMode ? 'light' : 'dark')"
+          >
             <div class="slider-bg" :class="{ 'is-dark': isDarkMode }"></div>
 
             <Sun :class="{ 'icon-active': !isDarkMode }" />
@@ -71,24 +74,24 @@ import Settings from "../icons/accountIcons/settings.vue";
 import Moon from "../icons/theme/moon.vue";
 import Sun from "../icons/theme/sun.vue";
 
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from "vue";
 
 const isDarkMode = ref(false);
 onMounted(() => {
   isDarkMode.value = document.documentElement.classList.contains("dark");
 });
 
-const toggleTheme = (mode: 'light' | 'dark') => {
-  if (mode === 'dark') {
+const toggleTheme = (mode: "light" | "dark") => {
+  if (mode === "dark") {
     document.documentElement.classList.add("dark");
-    localStorage.setItem('theme', 'dark');
+    localStorage.setItem("theme", "dark");
     isDarkMode.value = true;
   } else {
     document.documentElement.classList.remove("dark");
-    localStorage.setItem('theme', 'light');
+    localStorage.setItem("theme", "light");
     isDarkMode.value = false;
   }
-}
+};
 </script>
 
 <style>
@@ -99,8 +102,8 @@ const toggleTheme = (mode: 'light' | 'dark') => {
   background-color: var(--primary-0);
   padding: 2.25rem 2rem;
 
-  .dashboardMainMenu, .dashboardPreferences {
-
+  .dashboardMainMenu,
+  .dashboardPreferences {
     h5 {
       color: rgba(148, 167, 203, 0.4);
       font-weight: 600;
@@ -122,7 +125,7 @@ const toggleTheme = (mode: 'light' | 'dark') => {
       transition: all 0.5s ease;
       border-radius: 10px;
       margin-bottom: 0.5rem;
-      &:hover{
+      &:hover {
         transform: scale(1.2);
         transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
@@ -178,7 +181,9 @@ const toggleTheme = (mode: 'light' | 'dark') => {
           border-radius: 50%;
           transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
           z-index: 0;
-          &.is-dark { transform: translateX(34px); }
+          &.is-dark {
+            transform: translateX(34px);
+          }
         }
         .icon-container {
           z-index: 1;
@@ -187,21 +192,23 @@ const toggleTheme = (mode: 'light' | 'dark') => {
           align-items: center;
           justify-content: center;
           transition: all 0.5s ease;
-          color: var(--secondary-300) ;
+          color: var(--secondary-300);
           svg {
             width: 16px;
             height: 16px;
             padding: 9px;
             fill: currentColor;
-            path { stroke: currentColor; }
+            path {
+              stroke: currentColor;
+            }
           }
 
           &.icon-active {
-            color: var(--primary-0) ;
+            color: var(--primary-0);
             svg {
-              fill: var(--primary-0) ;
+              fill: var(--primary-0);
               path {
-                stroke: var(--primary-0) ;
+                stroke: var(--primary-0);
               }
             }
           }
@@ -217,7 +224,7 @@ const toggleTheme = (mode: 'light' | 'dark') => {
     gap: 0.75rem;
     padding-top: 4.25rem;
     padding-bottom: 3.125rem;
-    &:hover{
+    &:hover {
       transform: scale(1.2);
       transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       cursor: pointer;

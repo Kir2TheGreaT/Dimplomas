@@ -204,6 +204,7 @@ const dropOffStyle = computed(() =>
     align-items: stretch;
     @media (min-width: 1280px) {
       display: flex;
+      padding-top: 2px;
     }
   }
   .cardMenu {

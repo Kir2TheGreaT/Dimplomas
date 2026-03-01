@@ -135,7 +135,7 @@ const rentalStore = useRentalStore();
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
-    padding-top: 3.6rem;
+    padding-top: 2.25rem;
     background-color: var(--primary-0);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;

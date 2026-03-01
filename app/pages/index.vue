@@ -452,7 +452,6 @@ const rentalStore = useRentalStore();
 
 @media (min-width: 1440px) {
   .mainFirstPage {
-    border-top: 1px var(--borderColor) solid;
     .addsCarsFlex {
       padding-left: 4rem;
       padding-right: 4rem;

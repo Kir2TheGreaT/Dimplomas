@@ -42,10 +42,10 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
 }
 
 .content {
-  margin: 0 auto auto;
+  margin: 0 auto;
   background-color: var(--backgroundpages);
   @media (min-width: 1440px) {
-    max-width: 1433px;
+    max-width: 1920px;
   }
 }
 
@@ -55,12 +55,13 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
   z-index: 100;
 
   width: 100%;
-  max-width: 1440px;
+  max-width: 1410px;
 
   margin-left: auto;
   margin-right: auto;
 
   left: 0;
   right: 0;
+  border-bottom: 1px var(--borderColor) solid;
 }
 </style>

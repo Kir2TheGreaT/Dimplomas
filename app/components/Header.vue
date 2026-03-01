@@ -242,7 +242,7 @@ const updateWidth = () => {
   width.value = window.innerWidth;
 };
 
-const isDesktop = computed(() => width.value >= 1280);
+const isDesktop = computed(() => width.value >= 950);
 // позиционированние избранного
 const favoritesButton = ref<HTMLElement | null>(null);
 </script>
@@ -310,7 +310,6 @@ const favoritesButton = ref<HTMLElement | null>(null);
         padding-right: 1.5rem;
       }
       @media (min-width: 1440px) {
-        padding-right: 0;
         gap: 1.25rem;
       }
       .headerIcons {
@@ -449,6 +448,9 @@ const favoritesButton = ref<HTMLElement | null>(null);
       .headerImageButton {
         border: none;
         background-color: transparent;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
@@ -479,7 +481,7 @@ const favoritesButton = ref<HTMLElement | null>(null);
         padding-bottom: 0;
         padding-top: 0;
         padding-left: 4rem;
-        padding-right: 25rem;
+        margin-right: auto;
       }
       @media (min-width: 950px) and (max-width: 1439px) {
         padding-right: 1rem;
@@ -728,20 +730,6 @@ notificationButton svg {
 .settingsButton .icon-container {
   width: 24px;
   height: 24px;
-}
-
-@media (min-width: 375px) and (max-width: 1280px) {
-  .notificationButton svg {
-    width: 7px;
-    height: 7px;
-  }
-}
-
-@media (min-width: 375px) and (max-width: 1280px) {
-  .settingsButton svg {
-    width: 7px;
-    height: 7px;
-  }
 }
 .notificationButton,
 .settingsButton,

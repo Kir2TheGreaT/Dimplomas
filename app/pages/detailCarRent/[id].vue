@@ -172,9 +172,6 @@ watch(isSidebarOpen, (isOpen) => {
   display: flex;
   flex-direction: row;
 
-  @media (min-width: 1440px) {
-    border-top: 1px var(--borderColor) solid;
-  }
   .categoryMenu {
     display: flex;
     align-items: stretch;

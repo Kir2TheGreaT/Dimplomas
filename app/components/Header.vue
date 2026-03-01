@@ -10,8 +10,12 @@
         <div class="headerIcons">
           <button
             class="favorite-nav-btn"
-            :class="{ 'is-active': favoritesStore.favoritesIds.length > 0 }"
+            :class="{
+              'is-active': favoritesStore.favoritesIds.length > 0,
+              'is-visible': favoritesStore.favoritesIds.length > 0 || isDesktop,
+            }"
             @click.stop="isFavoritesOpen = !isFavoritesOpen"
+            ref="favoritesButton"
           >
             <div class="icon-wrap">
               <heart_bold class="heart-icon" />
@@ -23,12 +27,20 @@
               :is-open="isFavoritesOpen"
               @close="isFavoritesOpen = false"
               class="favorites-dropdown"
+              :anchor="favoritesButton"
             />
           </button>
-          <button class="notificationButton">
+          <button
+            class="notificationButton"
+            :class="{ 'is-visible': hasNotifications || isDesktop }"
+          >
             <notification />
           </button>
-          <button class="settingsButton">
+          <button
+            class="settingsButton"
+            :class="{ 'is-visible': hasSettingsAlert || isDesktop }"
+            @click="goAccount"
+          >
             <settings2 />
           </button>
         </div>
@@ -120,7 +132,7 @@ const isFavoritesOpen = ref(false);
 const goMain = () => {
   router.push(`/`);
 };
-const goToProfile = (id: number) => {
+const goToProfile = () => {
   router.push(`/adminCarRent`);
 };
 
@@ -169,10 +181,12 @@ watch(searchQuery, (value) => {
 });
 
 onMounted(() => {
+  updateWidth();
   window.addEventListener("resize", updateDropdownPosition);
   window.addEventListener("scroll", updateDropdownPosition);
   window.addEventListener("scroll", closeSearch, { passive: true });
   window.addEventListener("click", handleClickOutside);
+  window.addEventListener("resize", updateWidth);
 });
 
 onUnmounted(() => {
@@ -180,6 +194,7 @@ onUnmounted(() => {
   window.removeEventListener("scroll", updateDropdownPosition);
   window.removeEventListener("scroll", closeSearch);
   window.removeEventListener("click", handleClickOutside);
+  window.removeEventListener("resize", updateWidth);
 });
 
 // автозакрытие поиска
@@ -210,9 +225,26 @@ watch(searchQuery, (value) => {
   }
 });
 
-const goCategory = (id: number) => {
+const goCategory = () => {
   router.push(`/categoryCarRent`);
 };
+const goAccount = () => {
+  router.push(`/adminCarRent`);
+};
+
+//Кнопки при наличии контента на мобильной версии
+const hasNotifications = ref(false);
+const hasSettingsAlert = ref(false);
+
+const width = ref(0);
+
+const updateWidth = () => {
+  width.value = window.innerWidth;
+};
+
+const isDesktop = computed(() => width.value >= 1280);
+// позиционированние избранного
+const favoritesButton = ref<HTMLElement | null>(null);
 </script>
 
 <style>
@@ -271,6 +303,7 @@ const goCategory = (id: number) => {
       display: flex;
       align-items: center;
       justify-content: center;
+      gap: 0.5rem;
       @media (min-width: 950px) {
         gap: 1rem;
         order: 3;
@@ -281,7 +314,7 @@ const goCategory = (id: number) => {
         gap: 1.25rem;
       }
       .headerIcons {
-        display: none;
+        display: flex;
 
         @media (min-width: 1440px) {
           gap: 1.25rem;
@@ -309,6 +342,7 @@ const goCategory = (id: number) => {
             .icon-wrap {
               display: inline-grid;
               place-items: center;
+
               .heart-icon {
                 width: 24px;
                 height: 24px;
@@ -394,6 +428,20 @@ const goCategory = (id: number) => {
             .icon-container {
               width: 24px;
               height: 24px;
+            }
+          }
+        }
+        .favorite-nav-btn {
+          &.is-active {
+            @media (min-width: 375px) and (max-width: 1280px) {
+              .icon-wrap {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                .badge {
+                  display: none;
+                }
+              }
             }
           }
         }
@@ -660,6 +708,55 @@ const goCategory = (id: number) => {
   }
 }
 
+notificationButton svg {
+  width: 24px;
+  height: 24px;
+  color: var(--secondary-400);
+}
+
+.settingsButton svg {
+  width: 24px;
+  height: 24px;
+  color: var(--secondary-400);
+}
+
+.notificationButton .icon-container {
+  width: 24px;
+  height: 24px;
+}
+
+.settingsButton .icon-container {
+  width: 24px;
+  height: 24px;
+}
+
+@media (min-width: 375px) and (max-width: 1280px) {
+  .notificationButton svg {
+    width: 7px;
+    height: 7px;
+  }
+}
+
+@media (min-width: 375px) and (max-width: 1280px) {
+  .settingsButton svg {
+    width: 7px;
+    height: 7px;
+  }
+}
+.notificationButton,
+.settingsButton,
+.favorite-nav-btn {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+.notificationButton.is-visible,
+.settingsButton.is-visible,
+.favorite-nav-btn.is-visible {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+}
 .search-dropdown-portal::-webkit-scrollbar {
   width: 6px;
 }

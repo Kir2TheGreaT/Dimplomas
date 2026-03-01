@@ -1,7 +1,12 @@
 <template>
   <Teleport to="body">
     <Transition name="slide-fade">
-      <div v-if="isOpen" class="favorites-dropdown" ref="dropdownRef">
+      <div
+        v-if="isOpen"
+        class="favorites-dropdown"
+        ref="dropdownRef"
+        :style="dropdownStyle"
+      >
         <div class="dropdown-header">
           <h3>Favorites ({{ favoritesProducts.length }})</h3>
           <button class="close-btn" @click="$emit('close')">
@@ -55,6 +60,7 @@ import Trash from "./icons/accountIcons/favoritesIcons/trash.vue";
 
 const props = defineProps<{
   isOpen: boolean;
+  anchor: HTMLElement | null;
 }>();
 
 // закрытие элемента
@@ -71,10 +77,12 @@ const handleClickOutside = (event: MouseEvent) => {
 
 onMounted(() => {
   window.addEventListener("mousedown", handleClickOutside);
+  window.addEventListener("scroll", updatePosition);
 });
 
 onUnmounted(() => {
   window.removeEventListener("mousedown", handleClickOutside);
+  window.removeEventListener("scroll", updatePosition);
 });
 
 // создание частей элемента
@@ -109,18 +117,39 @@ const favoritesProducts = computed(() => {
 const removeItem = (id: number) => {
   favoritesCar.toggleFavorite(id);
 };
+
+// позиционирование
+const dropdownStyle = ref({
+  top: "0px",
+  left: "0px",
+});
+
+const updatePosition = () => {
+  if (!props.anchor) return;
+  const react = props.anchor.getBoundingClientRect();
+  dropdownStyle.value = {
+    top: `${react.bottom + window.scrollY + 8}px`,
+    left: `${react.right - 300 + window.scrollX}px`,
+  };
+};
+watch(
+  () => props.isOpen,
+  (val) => {
+    if (val) {
+      nextTick(updatePosition);
+    }
+  },
+);
 </script>
 
 <style scoped>
 .favorites-dropdown {
   position: absolute;
-  top: 5.5rem;
-  right: 15rem;
   width: 300px;
   background-color: var(--primary-0);
   border-radius: 12px;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-  z-index: 100;
+  z-index: 999;
   padding: 1rem;
   border: 1px solid rgba(195, 212, 233, 0.4);
 

@@ -54,6 +54,7 @@ const zoom = ref(10);
     height: 272px;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
+    object-fit: cover;
     @media (min-width: 1px) and (max-width: 1440px) {
       max-width: 295px;
       max-height: 272px;

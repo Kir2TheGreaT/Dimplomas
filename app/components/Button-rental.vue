@@ -17,9 +17,7 @@ const props = defineProps<{
 }>();
 
 const router = useRouter();
-// const goSummary = (id: number) => {
-//   router.push(`/paymentCarRent/${id}`);
-// };
+
 const emit = defineEmits(["click"]);
 const handleClick = (mouse: MouseEvent) => {
   emit("click", event);
@@ -38,7 +36,7 @@ const handleClick = (mouse: MouseEvent) => {
   gap: 0.5rem;
 
   :hover {
-    transform: scale(1.3)
+    transform: scale(1.3);
   }
 
   .text-container {

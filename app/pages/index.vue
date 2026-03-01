@@ -542,14 +542,6 @@ const rentalStore = useRentalStore();
       padding-right: 4rem;
     }
 
-    /* .recommendationCarCard > :nth-last-child(2) {
-      grid-column: 2;
-    }
-
-    .recommendationCarCard > :nth-last-child(1) {
-      grid-column: 3;
-    } */
-
     .recommendationText {
       padding-left: 4rem;
 

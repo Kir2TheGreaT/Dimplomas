@@ -1,94 +1,104 @@
 <template>
-  <Transition name="fade">
-    <div v-if="loading" class="preloader-wrapper">
-      <div class="progress-container">
-        <div class="progress-box">
-          <div ref="fill" class="progress-fill"></div>
-        </div>
-        <div class="progress-state state-load">Loading…</div>
-        <div class="progress-state state-finish">Complete!</div>
+  <div class="preloader-wrapper">
+    <div class="progress-container">
+      <div class="progress-box">
+        <div ref="fillEl" class="progress-fill"></div>
       </div>
-
-      <div class="dump-truck">
-        <div class="front"></div>
-        <div class="bucket"></div>
-        <div class="dirt">
-          <div class="dirt-spill"></div>
-        </div>
-        <div class="base"></div>
-        <div class="wheel wheel-front"></div>
-        <div class="wheel wheel-middle"></div>
-        <div class="wheel wheel-back"></div>
-      </div>
-
-      <div class="dump-truck">
-        <div class="front"></div>
-        <div class="bucket"></div>
-        <div class="dirt">
-          <div class="dirt-spill"></div>
-        </div>
-        <div class="base"></div>
-        <div class="wheel wheel-front"></div>
-        <div class="wheel wheel-middle"></div>
-        <div class="wheel wheel-back"></div>
-      </div>
+      <div class="progress-state state-load">Loading…</div>
+      <div class="progress-state state-finish">Complete!</div>
     </div>
-  </Transition>
+
+    <div class="dump-truck">
+      <div class="front"></div>
+      <div class="bucket"></div>
+      <div class="dirt">
+        <div class="dirt-spill"></div>
+      </div>
+      <div class="base"></div>
+      <div class="wheel wheel-front"></div>
+      <div class="wheel wheel-middle"></div>
+      <div class="wheel wheel-back"></div>
+    </div>
+
+    <div class="dump-truck">
+      <div class="front"></div>
+      <div class="bucket"></div>
+      <div class="dirt">
+        <div class="dirt-spill"></div>
+      </div>
+      <div class="base"></div>
+      <div class="wheel wheel-front"></div>
+      <div class="wheel wheel-middle"></div>
+      <div class="wheel wheel-back"></div>
+    </div>
+  </div>
 </template>
 
-<script setup>
-import { ref, onMounted } from "vue";
+<script lang="ts" setup>
+import { onMounted, ref } from "vue";
 
-const loading = ref(true);
-const fill = ref(null);
-const startTime = Date.now();
-const MIN_SHOW_TIME = 1600;
+const fillEl = ref<HTMLElement | null>(null);
 
-onMounted(() => {
+function loading() {
   const percents = [0.25, 0.5, 0.75, 1];
   let step = 0;
   const truckLoopDur = 10;
 
-  const updateFill = () => {
-    if (fill.value) {
-      fill.value.style.transform = `scaleY(${percents[step]})`;
+  const fill = () => {
+    if (fillEl.value) {
+      fillEl.value.style.transform = `scaleY(${percents[step]})`;
       step++;
       if (step < percents.length) {
-        setTimeout(updateFill, (truckLoopDur * 1000) / 2);
+        setTimeout(fill, (truckLoopDur * 1000) / 2);
       }
     }
   };
-  setTimeout(updateFill, (truckLoopDur * 1000) / 4);
+  setTimeout(fill, (truckLoopDur * 1000) / 4);
+}
 
-  const hidePreloader = () => {
-    const timePassed = Date.now() - startTime;
-    const remainingTime = Math.max(0, MIN_SHOW_TIME - timePassed);
-
-    setTimeout(() => {
-      loading.value = false;
-    }, remainingTime);
-  };
-
-  if (document.readyState === "complete") {
-    hidePreloader();
-  } else {
-    window.addEventListener("load", hidePreloader);
-  }
+onMounted(() => {
+  loading();
 });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
+$truckLoopDur: 10s;
+$sky: rgb(135, 190, 255);
+$r: rgb(255, 63, 48);
+$rT: rgba(255, 63, 48, 0);
+$w: rgba(255, 255, 255, 0.15);
+$wT: rgba(255, 255, 255, 0);
+$bk: rgb(40, 40, 40);
+$bkT: rgba(40, 40, 40, 0);
+$tbk: rgba(0, 0, 0, 0.15);
+$tbkT: rgba(0, 0, 0, 0);
+$br: rgb(127, 91, 88);
+$brT: rgba(127, 91, 88, 0);
+$dbr: rgb(100, 50, 50);
+$dbrT: rgba(100, 50, 50, 0);
+$dgy: rgb(80, 80, 80);
+$dgyT: rgba(80, 80, 80, 0);
+$lgy: rgb(160, 160, 160);
+$lgyT: rgba(160, 160, 160, 0);
+
 .preloader-wrapper {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgb(135, 190, 255);
-  z-index: 10000;
-  font-family: "Anton", sans-serif;
+  width: 100%;
+  height: 100%;
+  background: $sky;
+  z-index: 9999;
   overflow: hidden;
-  pointer-events: none;
+}
+
+*,
+*:before,
+*:after {
+  border: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 .progress-container,
@@ -98,28 +108,32 @@ onMounted(() => {
   position: absolute;
 }
 
+$truckRounds: 2;
+
+.progress-container,
+.progress-box {
+  width: 6em;
+}
+
 .progress-container {
   top: 50%;
   left: calc(50% - 3em);
-  width: 6em;
   height: 7.5em;
   z-index: 2;
 }
 
 .progress-box {
-  width: 6em;
   border-radius: 0 0 0.5em 0.5em;
-  border: 0.5em solid rgb(80, 80, 80);
+  border: 0.5em solid $dgy;
   border-top: 0;
   height: 4em;
-  overflow: hidden;
 }
 
 .progress-fill {
-  background: rgb(100, 50, 50);
+  background: $dbr;
   transform: scaleY(0);
   transform-origin: 50% 100%;
-  transition: transform 0.5s ease-out;
+  transition: transform calc($truckLoopDur / 20) ease-out;
   width: 100%;
   height: 100%;
 }
@@ -127,18 +141,18 @@ onMounted(() => {
 .progress-state {
   bottom: 0;
   left: 0;
-  width: 100%;
   font-size: 1.5em;
   text-align: center;
-  text-transform: uppercase;
+  width: 100%;
+  font-family: sans-serif;
 }
 
 .state-load {
-  animation: hideLoad 20s linear forwards;
+  animation: hideLoad ($truckLoopDur * $truckRounds) linear forwards;
 }
 
 .state-finish {
-  animation: showFinish 0.3s 20s linear forwards;
+  animation: showFinish 0.3s ($truckLoopDur * $truckRounds) linear forwards;
   visibility: hidden;
 }
 
@@ -147,57 +161,57 @@ onMounted(() => {
   top: calc(50% - 4em);
   width: 14em;
   height: 8em;
-}
 
-.dump-truck:nth-of-type(2) {
-  animation: backupL 10s ease-in-out infinite;
-  right: 50%;
-  transform: scaleX(-1) translateX(5em);
-}
-.dump-truck:nth-of-type(2) .bucket {
-  animation: dump 10s linear infinite;
-}
-.dump-truck:nth-of-type(2) .dirt {
-  animation: rotateDirt 10s linear infinite;
-}
-.dump-truck:nth-of-type(2) .dirt-spill {
-  animation: pourDirt 10s linear infinite;
-}
-.dump-truck:nth-of-type(2) .wheel {
-  animation: spinL 10s ease-in-out infinite;
-}
+  &:nth-of-type(2) {
+    animation: backupL $truckLoopDur ease-in-out $truckRounds forwards;
+    right: 50%;
+    transform: scaleX(-1) translateX(5em);
+    .bucket {
+      animation: dump $truckLoopDur linear $truckRounds;
+    }
+    .dirt {
+      animation: rotateDirt $truckLoopDur linear $truckRounds;
+    }
+    .dirt-spill {
+      animation: pourDirt $truckLoopDur linear $truckRounds;
+    }
+    .wheel {
+      animation: spinL $truckLoopDur ease-in-out $truckRounds;
+    }
+  }
 
-.dump-truck:last-of-type {
-  animation: backupR 10s 5s ease-in-out infinite;
-  left: 50%;
-  transform: translateX(5em);
-}
-.dump-truck:last-of-type .bucket {
-  animation: dump 10s 5s linear infinite;
-}
-.dump-truck:last-of-type .dirt {
-  animation: rotateDirt 10s 5s linear infinite;
-}
-.dump-truck:last-of-type .dirt-spill {
-  animation: pourDirt 10s 5s linear infinite;
-}
-.dump-truck:last-of-type .wheel {
-  animation: spinR 10s 5s ease-in-out infinite;
+  &:last-of-type {
+    animation: backupR $truckLoopDur calc($truckLoopDur / 2) ease-in-out
+      $truckRounds forwards;
+    left: 50%;
+    transform: translateX(5em);
+    .bucket {
+      animation: dump $truckLoopDur calc($truckLoopDur / 2) linear $truckRounds;
+    }
+    .dirt {
+      animation: rotateDirt $truckLoopDur calc($truckLoopDur / 2) linear
+        $truckRounds;
+    }
+    .dirt-spill {
+      animation: pourDirt $truckLoopDur calc($truckLoopDur / 2) linear
+        $truckRounds;
+    }
+    .wheel {
+      animation: spinR $truckLoopDur calc($truckLoopDur / 2) ease-in-out
+        $truckRounds;
+    }
+  }
 }
 
 .front {
   background:
-    linear-gradient(rgb(255, 63, 48), rgb(255, 63, 48)) 2.7em 0.75em / 0.2em 2em,
-    linear-gradient(rgb(160, 160, 160), rgb(160, 160, 160)) 1em 3.5em / 0.8em
-      0.2em,
-    linear-gradient(rgb(80, 80, 80), rgb(80, 80, 80)) 3.3em 6.1em / 0.5em 0.2em,
-    linear-gradient(83deg, rgb(40, 40, 40) 49%, transparent 50%) 1em 0.75em /
-      5em 2em,
-    radial-gradient(
-      3.4em 4.6em at 33% 100%,
-      transparent 49%,
-      rgb(255, 63, 48) 50%
-    );
+    linear-gradient($r, $r) 2.7em 0.75em / 0.2em 2em,
+    linear-gradient($lgy, $lgy) 1em 3.5em / 0.8em 0.2em,
+    linear-gradient($dgy, $dgy) 3.3em 6.1em / 0.5em 0.2em,
+    linear-gradient($dgy, $dgy) 3.3em 6.8em / 0.5em 0.2em,
+    linear-gradient(83deg, $bk 49%, $bkT 50%) 1em 0.75em / 5em 2em,
+    radial-gradient(3.4em 4.6em at 33% 100%, $wT 49%, $w 50%, $w 59%, $wT 60%),
+    radial-gradient(3.4em 4.6em at 33% 100%, $rT 49%, $r 50%);
   background-repeat: no-repeat;
   border-radius: 10% 20% 5% 25% / 10% 50% 5% 100%;
   top: 0.4em;
@@ -208,39 +222,55 @@ onMounted(() => {
 
 .bucket {
   background:
-    linear-gradient(rgba(0, 0, 0, 0.15) 1em, transparent 1em),
-    linear-gradient(rgb(80, 80, 80), rgb(80, 80, 80));
+    repeating-linear-gradient(
+        95deg,
+        $tbkT,
+        $tbkT 0.85em,
+        $tbk 0.9em,
+        $tbk 1.75em,
+        $tbk 1.8em
+      )
+      0.1em 1.6em / 7.8em 3.2em,
+    linear-gradient($dgy, $dgy) 8em 0 / 2em 0.5em,
+    linear-gradient(95deg, $dgyT 0.45em, $dgy 0.5em, $dgy 1.45em, $dgyT 1.5em)
+      7em 0 / 1.6em 5.5em,
+    linear-gradient($dgyT 1em, $dgy 1em) 0 0 / 7.5em 5.5em;
   background-repeat: no-repeat;
+  border-radius: 0 0 0 25% / 0 0 0 15%;
   top: 0;
   left: 0;
   width: 10em;
   height: 5.5em;
+  transform: rotate(0deg);
   transform-origin: 22% 100%;
 }
 
 .dirt {
-  background: rgb(100, 50, 50);
-  width: 7.4em;
-  height: 3em;
+  background: $dbr;
+  border-radius: 0 0 50% 50% / 0 0 100% 100%;
   top: 1.1em;
   left: -3.2em;
+  width: 7.4em;
+  height: 3em;
   transform: rotate(-25deg);
   transform-origin: 50% 0;
   z-index: -1;
 }
 
 .dirt-spill {
-  background: rgb(100, 50, 50);
+  background: $dbr;
+  border-radius: 0.4em;
   top: 0;
   left: -5.25em;
+  transform: rotate(-40deg) scale(1, 1);
+  transform-origin: 5.25em 0em;
   width: 5.5em;
   height: 0.8em;
-  transform: rotate(-40deg) scale(0, 0);
-  transform-origin: 5.25em 0em;
 }
 
 .base {
-  background: rgb(127, 91, 88);
+  background: $br;
+  border-radius: 0.25em;
   top: 5.5em;
   left: 2em;
   width: 8.3em;
@@ -248,12 +278,17 @@ onMounted(() => {
 }
 
 .wheel {
-  background: radial-gradient(circle, #282828 30%, #000 100%);
+  background:
+    radial-gradient(100% 100%, $bk 9%, $bkT 10%),
+    radial-gradient(100% 100%, $lgy 29%, $lgyT 30%),
+    linear-gradient(90deg, $w 49%, $wT 50%),
+    radial-gradient(100% 100%, $bk 49%, $bkT 50%);
   border-radius: 50%;
   bottom: 0;
   width: 2.4em;
   height: 2.4em;
 }
+
 .wheel-front {
   left: 10.4em;
 }
@@ -314,6 +349,9 @@ onMounted(() => {
     opacity: 1;
     transform: rotate(-40deg);
   }
+  25% {
+    transform: rotate(-25deg);
+  }
 }
 @keyframes pourDirt {
   from,
@@ -352,10 +390,9 @@ onMounted(() => {
 }
 @keyframes hideLoad {
   from {
-    opacity: 1;
+    visibility: visible;
   }
   to {
-    opacity: 0;
     visibility: hidden;
   }
 }
@@ -364,16 +401,12 @@ onMounted(() => {
     transform: scale(0);
     visibility: visible;
   }
+  80% {
+    transform: scale(1.2);
+  }
   to {
     transform: scale(1);
     visibility: visible;
   }
-}
-
-.fade-leave-active {
-  transition: opacity 0.8s ease;
-}
-.fade-leave-to {
-  opacity: 0;
 }
 </style>

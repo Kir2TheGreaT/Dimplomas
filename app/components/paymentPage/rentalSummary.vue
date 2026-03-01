@@ -35,8 +35,13 @@
           <p>$</p>
         </div>
       </div>
-      <form class="summaryInput">
-        <input type="text" placeholder="Apply promo code" />
+      <form class="summaryInput" @submit="handleApplyPromo">
+        <input
+          type="text"
+          placeholder="Apply promo code"
+          v-model="promoCode"
+          maxlength="5"
+        />
         <button type="submit" class="applyNow">Apply Now</button>
       </form>
 
@@ -45,7 +50,7 @@
           <h4>Total Rental Price</h4>
           <p>{{ totalText }}</p>
         </div>
-        <div class="totalDollars">${{ product.price.toFixed(2) }}</div>
+        <div class="totalDollars">${{ finalPrice.toFixed(2) }}</div>
       </div>
     </div>
   </div>
@@ -54,6 +59,7 @@
 <script lang="ts" setup>
 import { ref, computed, onMounted, onUnmounted } from "vue";
 import Star from "../icons/star.vue";
+import { usePaymentStore } from "@/stores/toast";
 
 const props = defineProps<{
   product: {
@@ -69,7 +75,7 @@ const props = defineProps<{
   };
 }>();
 
-// изменение текста в П
+// изменение текста в прайсе
 const screenWidth = ref(0);
 
 const updateWidth = () => {
@@ -89,6 +95,31 @@ const totalText = computed(() =>
     ? "Overall price and includes rental discount"
     : "Overall price rental",
 );
+// промокод
+const toastStore = usePaymentStore();
+const promoCode = ref("");
+const isDiscountApplied = ref(false);
+const handleApplyPromo = (e: Event) => {
+  e.preventDefault();
+
+  if (promoCode.value.length === 5) {
+    if (promoCode.value.toUpperCase() === "CAR10") {
+      isDiscountApplied.value = true;
+      toastStore.addToast("Скидка применена - 10%", "success");
+    } else {
+      toastStore.addToast("Неверный код, попробуйте другой", "error");
+    }
+  } else {
+    toastStore.addToast("Промокод должен состоять из 5 знаков", "warning");
+  }
+};
+
+const finalPrice = computed(() => {
+  if (isDiscountApplied.value) {
+    return props.product.price * 0.9;
+  }
+  return props.product.price;
+});
 </script>
 
 <style scoped>

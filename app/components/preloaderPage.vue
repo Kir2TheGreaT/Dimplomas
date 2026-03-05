@@ -279,10 +279,10 @@ $truckRounds: 2;
 
 .wheel {
   background:
-    radial-gradient(100% 100%, $bk 9%, $bkT 10%),
-    radial-gradient(100% 100%, $lgy 29%, $lgyT 30%),
+    radial-gradient(circle at 50% 50%, $bk 9%, $bkT 10%),
+    radial-gradient(circle at 50% 50%, $lgy 29%, $lgyT 30%),
     linear-gradient(90deg, $w 49%, $wT 50%),
-    radial-gradient(100% 100%, $bk 49%, $bkT 50%);
+    radial-gradient(circle at 50% 50%, $bk 49%, $bkT 50%);
   border-radius: 50%;
   bottom: 0;
   width: 2.4em;

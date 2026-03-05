@@ -209,7 +209,7 @@ const handleRentNow = async () => {
     flex-direction: row;
     justify-content: space-between;
     padding: 1.5rem 1.5rem 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding: 1rem 1rem 1.5rem;
     }
     .text {
@@ -221,7 +221,7 @@ const handleRentNow = async () => {
         font-size: 1.25rem;
         font-weight: bold;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 1rem;
         }
       }
@@ -230,7 +230,7 @@ const handleRentNow = async () => {
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.75rem;
           padding-right: 2.2rem;
         }
@@ -242,7 +242,7 @@ const handleRentNow = async () => {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--secondary-300);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
         text-wrap: nowrap;
       }
@@ -255,7 +255,7 @@ const handleRentNow = async () => {
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
     padding-left: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-bottom: 1.5rem;
@@ -275,7 +275,7 @@ const handleRentNow = async () => {
         line-height: 1;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 1rem;
           padding-top: 0.625rem;
           padding-bottom: 0.625rem;
@@ -315,7 +315,7 @@ const handleRentNow = async () => {
           font-weight: 600;
           font-size: 1rem;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 160%;
@@ -337,7 +337,7 @@ const handleRentNow = async () => {
         line-height: 1;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-top: 0.625rem;
           padding-bottom: 0.625rem;
           gap: 1rem;
@@ -378,7 +378,7 @@ const handleRentNow = async () => {
           font-weight: 600;
           font-size: 1rem;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.75rem;
             font-weight: 500;
             line-height: 160%;
@@ -410,7 +410,7 @@ const handleRentNow = async () => {
       font-size: 0.875rem;
       color: var(--secondary-300);
       font-weight: 500;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
       }
     }

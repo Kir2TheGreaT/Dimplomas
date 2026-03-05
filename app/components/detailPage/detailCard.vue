@@ -16,7 +16,8 @@
         <component
           :is="isAdded ? Heart_bold : Heart_linear"
           class="heart-iconCar"
-          :class="{ active: isAdded }">
+          :class="{ active: isAdded }"
+        >
         </component>
       </button>
     </div>
@@ -47,8 +48,13 @@
       </div>
     </div>
     <div class="priceDetailCard">
-      <div class="priceDetail">${{ product.price.toFixed(2) }}/ <span>days</span></div>
-      <ButtonRental label="Rent Now" @click="goSummary(product.id)"></ButtonRental>
+      <div class="priceDetail">
+        ${{ product.price.toFixed(2) }}/ <span>days</span>
+      </div>
+      <ButtonRental
+        label="Rent Now"
+        @click="goSummary(product.id)"
+      ></ButtonRental>
     </div>
   </div>
 </template>
@@ -58,9 +64,9 @@ import Heart_linear from "../icons/cardsIcons/heart_linear.vue";
 import Star from "../icons/star.vue";
 import ButtonRental from "../Button-rental.vue";
 import { useRouter } from "vue-router";
-import {useFavorites} from "~/stores/favorites";
+import { useFavorites } from "~/stores/favorites";
 import Heart_bold from "~/components/icons/cardsIcons/heart_bold.vue";
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const router = useRouter();
 const goSummary = (id: number) => {
@@ -95,7 +101,7 @@ const isAdded = computed(() => {
 .detailCard {
   background-color: var(--primary-0);
   border-radius: 10px;
-  @media (min-width: 375px) and (max-width: 1000px) {
+  @media (min-width: 1px) and (max-width: 1000px) {
     max-width: 327px;
   }
   .topDetailCard {
@@ -105,10 +111,10 @@ const isAdded = computed(() => {
     padding-left: 1.5rem;
     padding-top: 1.5rem;
     padding-right: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding: 1rem;
     }
-    .favoriteDetailCard{
+    .favoriteDetailCard {
       padding-bottom: 2rem;
       .heart-iconCar {
         width: 16px;
@@ -124,7 +130,7 @@ const isAdded = computed(() => {
           fill: currentColor;
         }
       }
-      &:hover{
+      &:hover {
         transform: scale(1.2);
         transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
@@ -136,14 +142,14 @@ const isAdded = computed(() => {
       display: flex;
       flex-direction: column;
       gap: 0.5rem;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         gap: 0.375rem;
       }
       .nameDetailCard {
         color: var(--secondary-500);
         font-size: 2rem;
         font-weight: 700;
-        @media (min-width: 375px) and (max-width: 1000px) {
+        @media (min-width: 1px) and (max-width: 1000px) {
           font-size: 1.25rem;
         }
       }
@@ -159,7 +165,7 @@ const isAdded = computed(() => {
         }
         .icon-container {
           color: #fbad39;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             width: 1.25rem;
             height: 1.25rem;
           }
@@ -169,7 +175,7 @@ const isAdded = computed(() => {
           font-size: 0.875rem;
           font-weight: 500;
           margin: 0;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -188,7 +194,7 @@ const isAdded = computed(() => {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-top: 2rem;
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding: 0 1rem 1rem;
       font-size: 0.75rem;
     }
@@ -202,7 +208,7 @@ const isAdded = computed(() => {
     padding-top: 2rem;
     padding-bottom: 4.25rem;
     text-wrap: nowrap;
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding: 1rem 1rem 2rem;
     }
     .blockOneSpecification {
@@ -217,14 +223,13 @@ const isAdded = computed(() => {
         p,
         h5 {
           margin: 0;
-
         }
 
         p {
           color: var(--secondary-300);
           font-size: 1.25rem;
           font-weight: 400;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -232,7 +237,7 @@ const isAdded = computed(() => {
           color: var(--secondary-400);
           font-size: 1.25rem;
           font-weight: 600;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -258,7 +263,7 @@ const isAdded = computed(() => {
           color: var(--secondary-300);
           font-size: 1.25rem;
           font-weight: 400;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -266,7 +271,7 @@ const isAdded = computed(() => {
           color: var(--secondary-400);
           font-size: 1.25rem;
           font-weight: 600;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -281,7 +286,7 @@ const isAdded = computed(() => {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-bottom: 1rem;
@@ -290,14 +295,14 @@ const isAdded = computed(() => {
       color: var(--secondary-500);
       font-size: 1.75rem;
       font-weight: 700;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         font-size: 1.25rem;
       }
       span {
         color: var(--secondary-300);
         font-size: 1rem;
         font-weight: 700;
-        @media (min-width: 375px) and (max-width: 1000px) {
+        @media (min-width: 1px) and (max-width: 1000px) {
           font-size: 0.75rem;
         }
       }

@@ -175,7 +175,7 @@ watch(isSidebarOpen, (isOpen) => {
   .categoryMenu {
     display: flex;
     align-items: stretch;
-    @media (min-width: 375px) and (max-width: 1280px) {
+    @media (min-width: 1px) and (max-width: 1280px) {
       display: none;
     }
   }
@@ -189,7 +189,7 @@ watch(isSidebarOpen, (isOpen) => {
       padding-left: 2rem;
       padding-right: 2rem;
       padding-top: 2rem;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
       }
@@ -205,7 +205,7 @@ watch(isSidebarOpen, (isOpen) => {
       flex-direction: row;
       justify-content: space-between;
       padding: 2rem 2rem 1rem;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         padding-right: 1.5rem;
         padding-left: 1.5rem;
         padding-bottom: 1.25rem;
@@ -229,7 +229,7 @@ watch(isSidebarOpen, (isOpen) => {
       padding-left: 2rem;
       padding-right: 2rem;
       gap: 2rem;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: scroll;
@@ -247,7 +247,7 @@ watch(isSidebarOpen, (isOpen) => {
       padding-right: 2rem;
       gap: 2rem;
       padding-bottom: 2rem;
-      @media (min-width: 375px) and (max-width: 1000px) {
+      @media (min-width: 1px) and (max-width: 1000px) {
         flex-direction: row;
         flex-wrap: nowrap;
         overflow-x: scroll;

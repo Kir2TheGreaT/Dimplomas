@@ -42,10 +42,7 @@
       <div class="cards">
         <template v-if="filteredProducts.length > 0">
           <ResponsiveCard
-            v-for="product in filteredProducts.slice(
-              0,
-              wideScreenQuantityCards,
-            )"
+            v-for="product in filteredProducts.slice(0, visibleLimit)"
             :key="product.id"
             :product="product"
           />
@@ -62,7 +59,11 @@
         </div>
       </div>
       <div class="buttonsMainPage">
-        <ButtonRental label="Show More Car" class="buttonAll" />
+        <ButtonRental
+          :label="buttonLabel"
+          class="buttonAll"
+          @click="showMoreCars"
+        />
         <p class="allCar">{{ filteredProducts.length }} Car</p>
       </div>
     </div>
@@ -182,6 +183,25 @@ const dropOffStyle = computed(() =>
     ? { transform: `translate(${-dist.x}px, ${-dist.y}px)` }
     : { transform: "none" },
 );
+
+// Кнопка больше машин
+
+const baseCount = computed(() => (screenWidth.value >= 1440 ? 9 : 12));
+const extraCarsCount = ref(0);
+const visibleLimit = computed(() => baseCount.value + extraCarsCount.value);
+const isAllShown = computed(() => {
+  return visibleLimit.value >= filteredProducts.value.length;
+});
+const buttonLabel = computed(() => {
+  return isAllShown.value ? "Show Start" : "Show More Car";
+});
+const showMoreCars = () => {
+  if (isAllShown.value) {
+    extraCarsCount.value = 0;
+  } else {
+    extraCarsCount.value += 9;
+  }
+};
 </script>
 
 <style scoped>
@@ -196,7 +216,7 @@ const dropOffStyle = computed(() =>
   @media (min-width: 1440px) and (max-width: 1439px) {
     border-top: 1px var(--borderColor) solid;
   }
-  @media (min-width: 375px) and (max-width: 1439px) {
+  @media (min-width: 1px) and (max-width: 1439px) {
     width: 100%;
   }
   .categoryMenu {
@@ -209,7 +229,7 @@ const dropOffStyle = computed(() =>
   }
   .cardMenu {
     overflow-x: hidden;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       gap: 2rem;
     }
     .switch_buttons {
@@ -220,7 +240,7 @@ const dropOffStyle = computed(() =>
       padding: 2rem;
       gap: 2.75rem;
       flex-direction: row;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         flex-direction: column;
         padding: 2rem 1.5rem;
         justify-content: start;
@@ -254,7 +274,7 @@ const dropOffStyle = computed(() =>
       padding-right: 2rem;
       padding-bottom: 4rem;
       gap: 2rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         padding-left: 1.5rem;
@@ -271,7 +291,7 @@ const dropOffStyle = computed(() =>
     padding-right: 2rem;
     gap: 18.125rem;
     padding-bottom: 4rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       align-self: start;
       gap: 3rem;
       padding-right: 1.5rem;

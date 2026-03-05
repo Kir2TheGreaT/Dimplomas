@@ -98,7 +98,7 @@ onBeforeUnmount(() => {
     padding-right: 1.5rem;
     padding-top: 1.5rem;
     padding-bottom: 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-top: 1rem;
@@ -113,7 +113,7 @@ onBeforeUnmount(() => {
         font-size: 1.25rem;
         font-weight: bold;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 1rem;
         }
       }
@@ -122,7 +122,7 @@ onBeforeUnmount(() => {
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.75rem;
         }
       }
@@ -133,7 +133,7 @@ onBeforeUnmount(() => {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--secondary-300);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
       }
     }
@@ -142,7 +142,7 @@ onBeforeUnmount(() => {
     display: flex;
     flex-direction: row;
     gap: 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       flex-direction: column;
     }
     .billingFistColumn {
@@ -152,7 +152,7 @@ onBeforeUnmount(() => {
       padding-left: 1.5rem;
       padding-right: 2rem;
       padding-bottom: 1.5rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 0;
@@ -161,7 +161,7 @@ onBeforeUnmount(() => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.75rem;
         }
         p {
@@ -169,7 +169,7 @@ onBeforeUnmount(() => {
           font-size: 1rem;
           font-weight: 600;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }
@@ -184,7 +184,7 @@ onBeforeUnmount(() => {
           font-size: 0.875rem;
           font-weight: 500;
           color: var(--secondary-300);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: auto;
             font-size: 0.75rem;
           }
@@ -194,7 +194,7 @@ onBeforeUnmount(() => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.75rem;
         }
         p {
@@ -202,7 +202,7 @@ onBeforeUnmount(() => {
           font-size: 1rem;
           font-weight: bold;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }
@@ -216,7 +216,7 @@ onBeforeUnmount(() => {
           font-size: 0.875rem;
           font-weight: 500;
           color: var(--secondary-300);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: auto;
             font-size: 0.75rem;
           }
@@ -228,7 +228,7 @@ onBeforeUnmount(() => {
       flex-direction: column;
       gap: 1.5rem;
       padding-right: 1.5rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         padding-left: 1rem;
         padding-right: 1rem;
         padding-bottom: 0;
@@ -237,7 +237,7 @@ onBeforeUnmount(() => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.75rem;
         }
         p {
@@ -245,7 +245,7 @@ onBeforeUnmount(() => {
           font-size: 1rem;
           font-weight: bold;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }
@@ -260,7 +260,7 @@ onBeforeUnmount(() => {
           font-size: 0.875rem;
           font-weight: 500;
           color: var(--secondary-300);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: auto;
             font-size: 0.75rem;
           }
@@ -270,7 +270,7 @@ onBeforeUnmount(() => {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.75rem;
         }
         p {
@@ -278,7 +278,7 @@ onBeforeUnmount(() => {
           font-size: 1rem;
           font-weight: bold;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }
@@ -291,7 +291,7 @@ onBeforeUnmount(() => {
           padding-left: 2rem;
           font-size: 0.875rem;
           font-weight: 500;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: auto;
             font-size: 0.75rem;
             margin-bottom: 1rem;

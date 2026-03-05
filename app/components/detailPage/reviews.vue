@@ -2,38 +2,48 @@
   <div ref="reviewsSection" class="mainHeadReviews">
     <div class="headerReviews">
       Reviews
-      <div class="badgeReviews"><span>{{reviews.length}}</span></div>
+      <div class="badgeReviews">
+        <span>{{ reviews.length }}</span>
+      </div>
     </div>
     <div class="mainReviews">
       <TransitionGroup name="list">
-      <div v-for="review in visibleReviews" :key="review.id"  class="oneReview">
-        <div class="topOneReview">
-          <div class="profile">
-            <img :src="review.avatar" alt="" class="avatarProfile" />
-            <div class="userReviewInfotmation">
-              <div class="nameInformation">{{ review.name }}</div>
-              <div class="userInformation">{{ review.position }}</div>
+        <div
+          v-for="review in visibleReviews"
+          :key="review.id"
+          class="oneReview"
+        >
+          <div class="topOneReview">
+            <div class="profile">
+              <img :src="review.avatar" alt="" class="avatarProfile" />
+              <div class="userReviewInfotmation">
+                <div class="nameInformation">{{ review.name }}</div>
+                <div class="userInformation">{{ review.position }}</div>
+              </div>
+            </div>
+            <div class="ratingReview">
+              <div class="dateReview">{{ review.date }}</div>
+              <div class="ratingStars">
+                <Star v-for="i in review.rating" :key="i"></Star>
+              </div>
             </div>
           </div>
-          <div class="ratingReview">
-            <div class="dateReview">{{review.date}}</div>
-            <div class="ratingStars">
-              <Star v-for="i in review.rating" :key="i"></Star>
-            </div>
+          <div class="textReview">
+            <p>
+              {{ review.text }}
+            </p>
           </div>
         </div>
-        <div class="textReview">
-          <p>
-            {{review.text}}
-          </p>
-        </div>
-      </div>
       </TransitionGroup>
     </div>
     <div class="showAll" v-if="reviews.length > 3">
       <div class="showAllButton" @click="handleToggle" ref="bottomAnchor">
-        <button><span class="showAllText">{{ isExpanded ? "Hide" : "Show All" }}</span></button>
-        <ArrowDown :style="arrowStyle"/>
+        <button>
+          <span class="showAllText">{{
+            isExpanded ? "Hide" : "Show All"
+          }}</span>
+        </button>
+        <ArrowDown :style="arrowStyle" />
       </div>
     </div>
   </div>
@@ -42,17 +52,17 @@
 <script lang="ts" setup>
 import ArrowDown from "../icons/arrow-down.vue";
 import Star from "../icons/star.vue";
-import { reviews } from '@/stores/reviews';
+import { reviews } from "@/stores/reviews";
 
 const reviewsSection = ref<HTMLElement | null>(null);
 const bottomAnchor = ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
 const visibleReviews = computed(() => {
-  return isExpanded.value ? reviews.value : reviews.value.slice(0,3);
+  return isExpanded.value ? reviews.value : reviews.value.slice(0, 3);
 });
 const arrowStyle = computed(() => ({
-  transform: isExpanded.value ? 'rotate(180deg)' : 'rotate(0deg)',
-  transition: 'transform 0.5s ease'
+  transform: isExpanded.value ? "rotate(180deg)" : "rotate(0deg)",
+  transition: "transform 0.5s ease",
 }));
 
 const handleToggle = async () => {
@@ -60,15 +70,15 @@ const handleToggle = async () => {
     isExpanded.value = false;
     await nextTick();
     reviewsSection.value?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start'
+      behavior: "smooth",
+      block: "start",
     });
   } else {
     isExpanded.value = true;
     await nextTick();
-    bottomAnchor.value?.scrollIntoView ({
-      behavior: 'smooth',
-      block: 'end'
+    bottomAnchor.value?.scrollIntoView({
+      behavior: "smooth",
+      block: "end",
     });
   }
 };
@@ -88,10 +98,9 @@ const handleToggle = async () => {
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--secondary-500);
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding-left: 1rem;
       padding-top: 1rem;
-
     }
     .badgeReviews {
       background-color: var(--primary-500);
@@ -115,10 +124,10 @@ const handleToggle = async () => {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1000px) {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    padding-bottom: 1.25rem;
+    @media (min-width: 1px) and (max-width: 1000px) {
+      padding-left: 1rem;
+      padding-right: 1rem;
+      padding-bottom: 1.25rem;
     }
     .oneReview {
       .topOneReview {
@@ -126,7 +135,7 @@ const handleToggle = async () => {
         flex-direction: row;
         justify-content: space-between;
         padding-top: 1.5rem;
-        @media (min-width: 375px) and (max-width: 1000px) {
+        @media (min-width: 1px) and (max-width: 1000px) {
           padding-top: 1rem;
         }
         .profile {
@@ -141,7 +150,7 @@ const handleToggle = async () => {
             aspect-ratio: 1 / 1;
             object-fit: cover;
             object-position: center;
-            @media (min-width: 375px) and (max-width: 1000px) {
+            @media (min-width: 1px) and (max-width: 1000px) {
               width: 44px;
               height: 44px;
             }
@@ -155,7 +164,7 @@ const handleToggle = async () => {
               color: var(--secondary-500);
               font-size: 1.25rem;
               font-weight: 700;
-              @media (min-width: 375px) and (max-width: 1000px) {
+              @media (min-width: 1px) and (max-width: 1000px) {
                 font-size: 1rem;
               }
             }
@@ -163,8 +172,8 @@ const handleToggle = async () => {
               color: var(--secondary-300);
               font-size: 0.875rem;
               font-weight: 500;
-              @media (min-width: 375px) and (max-width: 1000px) {
-              font-size: 0.75rem;
+              @media (min-width: 1px) and (max-width: 1000px) {
+                font-size: 0.75rem;
               }
             }
           }
@@ -179,7 +188,7 @@ const handleToggle = async () => {
             font-size: 0.875rem;
             font-weight: 500;
             padding-right: 5px;
-            @media (min-width: 375px) and (max-width: 1000px) {
+            @media (min-width: 1px) and (max-width: 1000px) {
               font-size: 0.75rem;
               display: flex;
               align-items: center;
@@ -190,7 +199,7 @@ const handleToggle = async () => {
           }
           .ratingStars {
             display: flex;
-            @media (min-width: 375px) and (max-width: 1000px) {
+            @media (min-width: 1px) and (max-width: 1000px) {
               flex-direction: row;
               align-items: end;
               margin-top: -1px;
@@ -198,7 +207,7 @@ const handleToggle = async () => {
             .icon-container {
               color: #fbad39;
               display: flex;
-              @media (min-width: 375px) and (max-width: 1000px) {
+              @media (min-width: 1px) and (max-width: 1000px) {
                 width: 0.75rem;
                 height: 0.75rem;
               }
@@ -210,7 +219,7 @@ const handleToggle = async () => {
         padding-top: 0.75rem;
         padding-left: 4.75rem;
         padding-right: 1.5rem;
-        @media (min-width: 375px) and (max-width: 1000px) {
+        @media (min-width: 1px) and (max-width: 1000px) {
           padding-top: 1rem;
           padding-left: 4.25rem;
           padding-right: 1rem;
@@ -222,7 +231,7 @@ const handleToggle = async () => {
           color: var(--secondary-400);
           font-size: 0.875rem;
           font-weight: 400;
-          @media (min-width: 375px) and (max-width: 1000px) {
+          @media (min-width: 1px) and (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
@@ -231,7 +240,7 @@ const handleToggle = async () => {
   }
   .showAll {
     padding-bottom: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1000px) {
+    @media (min-width: 1px) and (max-width: 1000px) {
       padding-bottom: 1rem;
     }
     .showAllButton {
@@ -247,7 +256,7 @@ const handleToggle = async () => {
         font-size: 1rem;
         font-weight: 600;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1000px) {
+        @media (min-width: 1px) and (max-width: 1000px) {
           font-size: 0.875rem;
         }
       }

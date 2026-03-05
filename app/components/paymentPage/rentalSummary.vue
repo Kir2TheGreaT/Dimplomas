@@ -134,7 +134,7 @@ const finalPrice = computed(() => {
     display: flex;
     flex-direction: column;
     gap: 0.25rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-top: 1rem;
       padding-left: 1rem;
       padding-right: 1rem;
@@ -145,7 +145,7 @@ const finalPrice = computed(() => {
       font-size: 1.25rem;
       font-weight: bold;
       color: var(--secondary-500);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 1rem;
       }
     }
@@ -154,7 +154,7 @@ const finalPrice = computed(() => {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--secondary-300);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
         line-height: 160%;
       }
@@ -165,7 +165,7 @@ const finalPrice = computed(() => {
     padding-left: 1.5rem;
     padding-bottom: 2rem;
     gap: 1rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-bottom: 1.5rem;
     }
@@ -180,7 +180,7 @@ const finalPrice = computed(() => {
         max-height: 36px;
         padding-left: 0.5rem;
         padding-right: 0.5rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           max-height: 32px;
           padding-left: 0.438rem;
           padding-right: 0.438rem;
@@ -193,7 +193,7 @@ const finalPrice = computed(() => {
       gap: 0.5rem;
       padding-top: 1.125rem;
       padding-bottom: 1.125rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         padding-top: 0;
         padding-bottom: 1.875rem;
         gap: 0.75rem;
@@ -203,7 +203,7 @@ const finalPrice = computed(() => {
         font-size: 1.5rem;
         font-weight: 700;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 1.25rem;
           line-height: 140%;
         }
@@ -220,13 +220,13 @@ const finalPrice = computed(() => {
             width: 20px;
             height: 20px;
             color: #fbad39;
-            @media (min-width: 375px) and (max-width: 1439px) {
+            @media (min-width: 1px) and (max-width: 1439px) {
               width: 12px;
               height: 12px;
             }
           }
         }
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           display: flex;
           flex-direction: column;
           align-items: start;
@@ -240,7 +240,7 @@ const finalPrice = computed(() => {
           color: var(--secondary-400);
           text-wrap: nowrap;
           padding-top: 0.2rem;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.75rem;
             margin-top: -0.5rem;
             padding-left: 0;
@@ -264,7 +264,7 @@ const finalPrice = computed(() => {
       padding-right: 1.5rem;
       padding-bottom: 1.5rem;
       padding-top: 2rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         padding-top: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -276,7 +276,7 @@ const finalPrice = computed(() => {
         font-size: 1rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-left: 0;
           font-size: 0.75rem;
         }
@@ -295,7 +295,7 @@ const finalPrice = computed(() => {
       padding-bottom: 2rem;
       padding-left: 1.5rem;
       padding-right: 1.5rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         padding-top: 1rem;
         padding-left: 1rem;
         padding-right: 1rem;
@@ -307,7 +307,7 @@ const finalPrice = computed(() => {
         font-size: 1rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-left: 0;
           font-size: 0.75rem;
         }
@@ -326,7 +326,7 @@ const finalPrice = computed(() => {
     padding-left: -0.5rem;
     padding-right: 1.5rem;
     position: relative;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-right: 1rem;
     }
     input {
@@ -341,7 +341,7 @@ const finalPrice = computed(() => {
       color: var(--secondary-300);
       font-size: 0.875rem;
       font-weight: 500;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         height: 40px;
         padding-left: 1.25rem;
         font-size: 0.75rem;
@@ -356,7 +356,7 @@ const finalPrice = computed(() => {
       padding-right: 1.5rem;
       border-top-right-radius: 10px;
       border-bottom-right-radius: 10px;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
         padding-right: 1.25rem;
       }
@@ -370,7 +370,7 @@ const finalPrice = computed(() => {
     padding-bottom: 1.5rem;
     padding-top: 2rem;
     justify-content: space-between;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-bottom: 1rem;
@@ -386,7 +386,7 @@ const finalPrice = computed(() => {
         font-weight: bold;
         font-size: 1.25rem;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 1rem;
         }
       }
@@ -396,7 +396,7 @@ const finalPrice = computed(() => {
         font-size: 0.875rem;
         color: var(--secondary-300);
         text-wrap: wrap;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.75rem;
         }
       }
@@ -405,7 +405,7 @@ const finalPrice = computed(() => {
       font-weight: bold;
       font-size: 2rem;
       color: var(--secondary-500);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 1.25rem;
       }
     }

@@ -128,7 +128,7 @@ const setMethod = (method: string) => {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-top: 1.5rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-top: 1rem;
@@ -142,7 +142,7 @@ const setMethod = (method: string) => {
         font-size: 1.25rem;
         font-weight: bold;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.875rem;
         }
       }
@@ -151,7 +151,7 @@ const setMethod = (method: string) => {
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.75rem;
         }
       }
@@ -162,7 +162,7 @@ const setMethod = (method: string) => {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--secondary-300);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
       }
     }
@@ -172,7 +172,7 @@ const setMethod = (method: string) => {
       background-color: var(--backgroundpages);
       border-radius: 10px;
       margin: 2rem 1.5rem 1.5rem;
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         margin: 1.5rem 1rem 1.25rem;
       }
 
@@ -185,7 +185,7 @@ const setMethod = (method: string) => {
         padding-left: 1.5rem;
         padding-bottom: 1.5rem;
         padding-top: 1.5rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-left: 1rem;
           padding-bottom: 1.25rem;
           padding-top: 1rem;
@@ -193,7 +193,7 @@ const setMethod = (method: string) => {
         img {
           padding-right: 1.5rem;
           width: 92px;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             padding-right: 1rem;
           }
         }
@@ -219,7 +219,7 @@ const setMethod = (method: string) => {
       .mainPaymentMethod {
         display: flex;
         flex-direction: row;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           flex-direction: column;
         }
         .firstPaymentMethodColumn {
@@ -228,7 +228,7 @@ const setMethod = (method: string) => {
           padding-left: 1.5rem;
           gap: 1.5rem;
           padding-right: 2rem;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             padding-left: 1rem;
             padding-right: 1rem;
             gap: 1.25rem;
@@ -237,7 +237,7 @@ const setMethod = (method: string) => {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            @media (min-width: 375px) and (max-width: 1439px) {
+            @media (min-width: 1px) and (max-width: 1439px) {
               gap: 0.75rem;
             }
             p {
@@ -245,7 +245,7 @@ const setMethod = (method: string) => {
               font-weight: 600;
               margin: 0;
               color: var(--secondary-500);
-              @media (min-width: 375px) and (max-width: 1439px) {
+              @media (min-width: 1px) and (max-width: 1439px) {
                 font-size: 0.875rem;
               }
             }
@@ -264,7 +264,7 @@ const setMethod = (method: string) => {
                 padding-bottom: 1rem;
                 font-weight: 500;
                 font-size: 0.875rem;
-                @media (min-width: 375px) and (max-width: 1439px) {
+                @media (min-width: 1px) and (max-width: 1439px) {
                   width: auto;
                   font-size: 0.75rem;
                   display: flex;
@@ -278,7 +278,7 @@ const setMethod = (method: string) => {
             flex-direction: column;
             gap: 1rem;
             padding-bottom: 2rem;
-            @media (min-width: 375px) and (max-width: 1439px) {
+            @media (min-width: 1px) and (max-width: 1439px) {
               padding-bottom: 1.25rem;
               gap: 0.75rem;
             }
@@ -287,7 +287,7 @@ const setMethod = (method: string) => {
               font-weight: 600;
               margin: 0;
               color: var(--secondary-500);
-              @media (min-width: 375px) and (max-width: 1439px) {
+              @media (min-width: 1px) and (max-width: 1439px) {
                 font-size: 0.875rem;
               }
             }
@@ -306,7 +306,7 @@ const setMethod = (method: string) => {
                 padding-bottom: 1rem;
                 font-weight: 500;
                 font-size: 0.875rem;
-                @media (min-width: 375px) and (max-width: 1439px) {
+                @media (min-width: 1px) and (max-width: 1439px) {
                   width: auto;
                   font-size: 0.75rem;
                   display: flex;
@@ -322,7 +322,7 @@ const setMethod = (method: string) => {
           padding-left: 1.5rem;
           gap: 1.5rem;
           padding-right: 2rem;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             gap: 1.25rem;
             padding-left: 1rem;
             padding-right: 1rem;
@@ -331,7 +331,7 @@ const setMethod = (method: string) => {
             display: flex;
             flex-direction: column;
             gap: 1rem;
-            @media (min-width: 375px) and (max-width: 1439px) {
+            @media (min-width: 1px) and (max-width: 1439px) {
               gap: 0.75rem;
             }
             p {
@@ -339,7 +339,7 @@ const setMethod = (method: string) => {
               font-weight: 600;
               margin: 0;
               color: var(--secondary-500);
-              @media (min-width: 375px) and (max-width: 1439px) {
+              @media (min-width: 1px) and (max-width: 1439px) {
                 font-size: 0.875rem;
               }
             }
@@ -347,7 +347,7 @@ const setMethod = (method: string) => {
               display: flex;
               align-items: center;
               flex-direction: row;
-              @media (min-width: 375px) and (max-width: 1439px) {
+              @media (min-width: 1px) and (max-width: 1439px) {
                 &.CVC {
                   margin-bottom: 1rem;
                 }
@@ -363,7 +363,7 @@ const setMethod = (method: string) => {
                 padding-bottom: 1rem;
                 font-weight: 500;
                 font-size: 0.875rem;
-                @media (min-width: 375px) and (max-width: 1439px) {
+                @media (min-width: 1px) and (max-width: 1439px) {
                   font-size: 0.75rem;
                   width: auto;
                   display: flex;
@@ -394,7 +394,7 @@ const setMethod = (method: string) => {
       filter: brightness(0.98);
     }
 
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       padding-right: 1rem;
       padding-bottom: 1rem;
@@ -415,7 +415,7 @@ const setMethod = (method: string) => {
         object-fit: contain;
         padding-right: 2rem;
         width: 92px;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-right: 1rem;
         }
       }
@@ -427,7 +427,7 @@ const setMethod = (method: string) => {
         line-height: 1;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.5rem;
         }
         .empty-square {
@@ -436,7 +436,7 @@ const setMethod = (method: string) => {
           border: 1.5px solid var(--secondary-300);
           border-radius: 50%;
           box-sizing: border-box;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: 16px;
             height: 16px;
             padding-left: 1rem;
@@ -447,7 +447,7 @@ const setMethod = (method: string) => {
           height: 24px;
           color: var(--primary-500);
           display: block;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: 16px;
             height: 16px;
           }
@@ -457,7 +457,7 @@ const setMethod = (method: string) => {
           font-weight: 600;
           font-size: 1rem;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }
@@ -479,7 +479,7 @@ const setMethod = (method: string) => {
         object-fit: contain;
         padding-right: 2rem;
         width: 92px;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-right: 1rem;
         }
       }
@@ -491,7 +491,7 @@ const setMethod = (method: string) => {
         line-height: 1;
         padding-top: 1rem;
         padding-bottom: 1rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           gap: 0.5rem;
         }
         .empty-square {
@@ -500,7 +500,7 @@ const setMethod = (method: string) => {
           border: 1.5px solid var(--secondary-300);
           border-radius: 50%;
           box-sizing: border-box;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: 16px;
             height: 16px;
             padding-left: 1rem;
@@ -511,7 +511,7 @@ const setMethod = (method: string) => {
           height: 24px;
           color: var(--primary-500);
           display: block;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             width: 16px;
             height: 16px;
           }
@@ -521,7 +521,7 @@ const setMethod = (method: string) => {
           font-weight: 600;
           font-size: 1rem;
           color: var(--secondary-500);
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             font-size: 0.875rem;
           }
         }

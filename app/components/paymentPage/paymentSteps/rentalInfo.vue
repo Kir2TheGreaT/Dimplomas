@@ -187,7 +187,7 @@ onMounted(() => {
     flex-direction: row;
     justify-content: space-between;
     padding: 1.5rem 1.5rem 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding: 1rem 1rem 1.5rem;
     }
     .text {
@@ -199,7 +199,7 @@ onMounted(() => {
         font-size: 1.25rem;
         font-weight: bold;
         color: var(--secondary-500);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 1rem;
         }
       }
@@ -208,7 +208,7 @@ onMounted(() => {
         font-size: 0.875rem;
         font-weight: 500;
         color: var(--secondary-300);
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           font-size: 0.75rem;
         }
       }
@@ -219,7 +219,7 @@ onMounted(() => {
       font-size: 0.875rem;
       font-weight: 500;
       color: var(--secondary-300);
-      @media (min-width: 375px) and (max-width: 1439px) {
+      @media (min-width: 1px) and (max-width: 1439px) {
         font-size: 0.75rem;
       }
     }
@@ -235,7 +235,7 @@ onMounted(() => {
         gap: 0.5rem;
         padding-left: 1.5rem;
         padding-bottom: 1.5rem;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           padding-left: 1rem;
           padding-bottom: 1.25rem;
         }
@@ -256,7 +256,7 @@ onMounted(() => {
       .mainDropOffRental {
         display: flex;
         flex-direction: row;
-        @media (min-width: 375px) and (max-width: 1439px) {
+        @media (min-width: 1px) and (max-width: 1439px) {
           flex-direction: column;
         }
         .firstRentalColumn,
@@ -267,7 +267,7 @@ onMounted(() => {
           gap: 1.5rem;
           padding-right: 2rem;
           flex: 1;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             padding-left: 1rem;
             padding-right: 1rem;
           }
@@ -279,7 +279,7 @@ onMounted(() => {
           flex-direction: column;
           gap: 1rem;
           padding-bottom: 2rem;
-          @media (min-width: 375px) and (max-width: 1439px) {
+          @media (min-width: 1px) and (max-width: 1439px) {
             gap: 0.75rem;
             padding-bottom: 1.25rem;
           }
@@ -288,7 +288,7 @@ onMounted(() => {
             font-weight: 600;
             margin: 0;
             color: var(--secondary-500);
-            @media (min-width: 375px) and (max-width: 1439px) {
+            @media (min-width: 1px) and (max-width: 1439px) {
               font-size: 0.875rem;
             }
           }
@@ -312,7 +312,7 @@ onMounted(() => {
   width: 100%;
   max-width: 386px;
 
-  @media (min-width: 375px) and (max-width: 1439px) {
+  @media (min-width: 1px) and (max-width: 1439px) {
     max-width: 295px;
   }
 
@@ -337,7 +337,7 @@ onMounted(() => {
     appearance: none;
     background: transparent;
 
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       padding-left: 1rem;
       font-size: 0.75rem;
     }

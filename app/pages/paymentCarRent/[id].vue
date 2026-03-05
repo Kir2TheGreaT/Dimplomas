@@ -34,7 +34,7 @@ const product = computed(() => products.find((p) => p.id === productId));
   display: flex;
   flex-direction: row;
   overflow-x: hidden;
-  @media (min-width: 375px) and (max-width: 1279px) {
+  @media (min-width: 1px) and (max-width: 1279px) {
     display: flex;
     flex-direction: column;
   }
@@ -47,7 +47,7 @@ const product = computed(() => products.find((p) => p.id === productId));
     padding-top: 2rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       display: flex;
       order: 2;
       padding-top: 0;
@@ -59,17 +59,31 @@ const product = computed(() => products.find((p) => p.id === productId));
     }
     .billingPayment {
       margin-bottom: 2rem;
+      @media (min-width: 1px) and (max-width: 1439px) {
+        margin-left: 1.5rem;
+      }
     }
     .rentalPayment {
       margin-bottom: 2rem;
+      @media (min-width: 1px) and (max-width: 1439px) {
+        margin-left: 1.5rem;
+      }
     }
     .paymentPayments {
       margin-bottom: 2rem;
+      @media (min-width: 1px) and (max-width: 1439px) {
+        margin-left: 1.5rem;
+      }
+    }
+    .confirmationPayment {
+      @media (min-width: 1px) and (max-width: 1439px) {
+        margin-left: 1.5rem;
+      }
     }
   }
   .cardPaymentData {
     padding-top: 2rem;
-    @media (min-width: 375px) and (max-width: 1439px) {
+    @media (min-width: 1px) and (max-width: 1439px) {
       display: flex;
       order: 1;
       padding: 2rem 1.5rem;

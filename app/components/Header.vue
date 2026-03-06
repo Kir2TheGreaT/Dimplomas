@@ -44,7 +44,7 @@
           </button>
         </div>
         <button class="headerImageButton" @click="goToProfile()">
-          <img src="/noImage.webp" alt="" />
+          <img :src="userAvatar" alt="User Profile" />
         </button>
       </div>
 
@@ -121,18 +121,35 @@ import MenuIcon from "~/components/icons/headerIcons/menu-icon.vue";
 import { products } from "~~/data/products";
 import { ref, computed, inject, onMounted, onUnmounted, watch } from "vue";
 
+// Страница логина или АДмина
+const authCookie = useCookie<boolean>("auth-logged-in", {
+  default: () => false,
+});
+
+const handleAuthNavigation = () => {
+  if (authCookie.value) {
+    router.push("/adminCarRent");
+  } else {
+    router.push("/loginPage");
+  }
+};
+const goToProfile = () => handleAuthNavigation();
+const goAccount = () => handleAuthNavigation();
+const isAuthenticated = useCookie<boolean>("auth-logged-in");
+const userAvatar = computed(() => {
+  return isAuthenticated.value ? "/noImage.webp" : "/Image.svg";
+});
+
 // изменение хэдера на определенных страницах
 const route = useRoute();
 const isSpecial = computed(() => route.meta.isSpecialHeader === true);
+
 // избранное
 const favoritesStore = useFavorites();
 const isFavoritesOpen = ref(false);
 
 const goMain = () => {
   router.push(`/`);
-};
-const goToProfile = () => {
-  router.push(`/adminCarRent`);
 };
 
 const sidebarNav = inject("sidebarContext");
@@ -226,9 +243,6 @@ watch(searchQuery, (value) => {
 
 const goCategory = () => {
   router.push(`/categoryCarRent`);
-};
-const goAccount = () => {
-  router.push(`/adminCarRent`);
 };
 
 //Кнопки при наличии контента на мобильной версии

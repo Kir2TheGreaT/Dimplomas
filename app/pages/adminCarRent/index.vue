@@ -36,6 +36,7 @@ import AccountStat from "~/components/accountPage/accountStat.vue";
 definePageMeta({
   hideFooter: true,
   isSpecialHeader: true,
+  middleware: "auth",
 });
 
 // сайдбар
@@ -77,8 +78,10 @@ watch(isSidebarOpen, (value) => {
     display: flex;
     flex-direction: column;
     gap: 2rem;
-    .accountStatisticWidget {
-      margin-top: 2rem;
+    @media (min-width: 1440px) {
+      .accountStatisticWidget {
+        margin-top: 2rem;
+      }
     }
   }
   .mobileSidebar {

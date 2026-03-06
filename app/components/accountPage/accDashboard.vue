@@ -53,7 +53,7 @@
         </div>
       </div>
     </div>
-    <div class="logOutAccount">
+    <div class="logOutAccount" @click="handleLogout">
       <LogOut></LogOut>
       <h6>Log Out</h6>
     </div>
@@ -91,6 +91,13 @@ const toggleTheme = (mode: "light" | "dark") => {
     localStorage.setItem("theme", "light");
     isDarkMode.value = false;
   }
+};
+// Выход
+const router = useRouter();
+const authCookie = useCookie("auth-logged-in");
+const handleLogout = () => {
+  authCookie.value = null;
+  router.push("/");
 };
 </script>
 

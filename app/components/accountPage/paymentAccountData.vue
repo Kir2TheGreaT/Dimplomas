@@ -135,7 +135,7 @@ const rentalStore = useRentalStore();
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     padding-bottom: 1.5rem;
-    padding-top: 2.25rem;
+    padding-top: 3.4rem;
     background-color: var(--primary-0);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
@@ -169,7 +169,7 @@ const rentalStore = useRentalStore();
         }
       }
       .mobileView {
-        @media (width: 1440px) {
+        @media (min-width: 1440px) {
           display: none;
         }
       }

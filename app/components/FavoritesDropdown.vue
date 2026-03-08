@@ -77,14 +77,21 @@ const handleClickOutside = (event: MouseEvent) => {
 
 onMounted(() => {
   window.addEventListener("mousedown", handleClickOutside);
-  window.addEventListener("scroll", updatePosition);
+  window.addEventListener("scroll", handleScroll, { passive: true });
   window.addEventListener("resize", updatePosition);
 });
 
 onUnmounted(() => {
   window.removeEventListener("mousedown", handleClickOutside);
+  window.removeEventListener("scroll", handleScroll);
   window.removeEventListener("scroll", updatePosition);
 });
+
+const handleScroll = () => {
+  if (props.isOpen) {
+    emit("close");
+  }
+};
 
 // создание частей элемента
 const emit = defineEmits(["close"]);

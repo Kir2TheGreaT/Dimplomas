@@ -104,6 +104,14 @@
         </button>
       </div>
     </div>
+    <div v-if="width >= 1440" class="header-car-container">
+      <img
+        src="/cars/Koenigsegg.png"
+        alt="Koenigsegg"
+        class="koenigsegg-car"
+        :style="{ transform: `translateX(${carX}px)` }"
+      />
+    </div>
   </header>
 </template>
 
@@ -203,6 +211,7 @@ onMounted(() => {
   window.addEventListener("scroll", closeSearch, { passive: true });
   window.addEventListener("click", handleClickOutside);
   window.addEventListener("resize", updateWidth);
+  window.addEventListener("mousemove", handleMouseMove, { passive: true });
 });
 
 onUnmounted(() => {
@@ -211,6 +220,7 @@ onUnmounted(() => {
   window.removeEventListener("scroll", closeSearch);
   window.removeEventListener("click", handleClickOutside);
   window.removeEventListener("resize", updateWidth);
+  window.removeEventListener("mousemove", handleMouseMove);
 });
 
 // автозакрытие поиска
@@ -258,6 +268,17 @@ const updateWidth = () => {
 const isDesktop = computed(() => width.value >= 950);
 // позиционированние избранного
 const favoritesButton = ref<HTMLElement | null>(null);
+
+// машинка в хедере
+const carX = ref(0);
+const carWidth = 300;
+const handleMouseMove = (event: MouseEvent) => {
+  if (width.value >= 1440) {
+    const maxScroll = window.innerWidth - carWidth;
+    const ratio = event.clientX / window.innerWidth;
+    carX.value = ratio * maxScroll;
+  }
+};
 </script>
 
 <style>
@@ -723,7 +744,25 @@ const favoritesButton = ref<HTMLElement | null>(null);
   }
 }
 
-notificationButton svg {
+.header-car-container {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+
+  height: 40px;
+  pointer-events: none;
+  z-index: 10;
+  overflow: hidden;
+
+  .koenigsegg-car {
+    height: 100%;
+    width: auto;
+    will-change: transform;
+    transition: transform 0.15s ease-out;
+  }
+}
+.notificationButton svg {
   width: 24px;
   height: 24px;
   color: var(--secondary-400);

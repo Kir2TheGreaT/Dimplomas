@@ -43,26 +43,19 @@
       </div>
 
       <button type="submit" class="submit-btn">Войти</button>
-    </form>
-  </div>
 
-  <div class="toast-wrapper">
-    <TransitionGroup name="list">
-      <div
-        v-for="toast in toastStore.toasts"
-        :key="toast.id"
-        class="toast-card"
-        :class="toast.type"
-      >
-        <span class="message">{{ toast.message }}</span>
-      </div>
-    </TransitionGroup>
+      <p class="switch-text">
+        Нет аккаунта?
+        <span class="switch-link" @click="$emit('switch-to-register')">
+          Зарегистрироваться
+        </span>
+      </p>
+    </form>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from "vue";
-// Импорт стора уведомлений
 import { usePaymentStore } from "@/stores/toast";
 
 const router = useRouter();
@@ -72,7 +65,8 @@ const email = ref("");
 const password = ref("");
 const isAuthenticated = useCookie("auth-logged-in");
 
-// Валидация и логика входа
+defineEmits(["switch-to-register"]);
+// логика формы входа
 const handleLogin = () => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
@@ -86,15 +80,20 @@ const handleLogin = () => {
     return;
   }
 
-  if (email.value && password.value) {
-    isAuthenticated.value = true;
+  const users = JSON.parse(localStorage.getItem("morent_users") || "[]");
+  const validUser = users.find(
+    (u: any) => u.email === email.value && u.password === password.value,
+  );
+
+  if (validUser) {
+    isAuthenticated.value = "true";
     toastStore.addToast("Успешный вход!", "success");
 
     setTimeout(() => {
       router.push("/adminCarRent");
     }, 500);
   } else {
-    toastStore.addToast("Ошибка авторизации. Проверьте данные", "error");
+    toastStore.addToast("Неверный email или пароль", "error");
   }
 };
 </script>
@@ -206,47 +205,21 @@ const handleLogin = () => {
   transform: scale(0.98);
 }
 
-.toast-wrapper {
-  position: fixed;
-  top: 24px;
-  right: 24px;
-  z-index: 9999;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
+.switch-text {
+  text-align: center;
+  margin-top: 1rem;
+  font-size: 0.875rem;
+  color: var(--secondary-400, #90a3bf);
 }
 
-.toast-card {
-  padding: 16px 24px;
-  border-radius: 10px;
-  color: var(--primary-0, #ffffff);
-  font-weight: 500;
-  min-width: 280px;
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+.switch-link {
+  color: var(--primary-500, #3563e9);
+  cursor: pointer;
+  font-weight: 600;
+  margin-left: 4px;
 }
 
-.success {
-  background-color: #7cffcb;
-  color: #1a253c;
-}
-.error {
-  background-color: #ed3f3f;
-}
-.warning {
-  background-color: #ffc107;
-  color: #1a253c;
-}
-
-.list-enter-active,
-.list-leave-active {
-  transition: all 0.4s ease;
-}
-.list-enter-from {
-  opacity: 0;
-  transform: translateX(50px);
-}
-.list-leave-to {
-  opacity: 0;
-  transform: scale(0.9);
+.switch-link:hover {
+  text-decoration: underline;
 }
 </style>

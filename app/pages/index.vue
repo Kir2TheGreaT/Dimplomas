@@ -531,7 +531,7 @@ const rentalStore = useRentalStore();
       padding-right: 4rem;
       padding-bottom: 2rem;
       width: 100%;
-      max-width: 1295px;
+      max-width: 1280px;
       margin: 0 auto;
       overflow: hidden;
     }

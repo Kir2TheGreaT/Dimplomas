@@ -124,8 +124,20 @@ const emit = defineEmits(["switch-to-login"]);
 const handleRegister = () => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!emailReg.test(email.value)) {
+  const normalizedEmail = email.value.trim().toLowerCase();
+
+  if (!normalizedEmail) {
+    toastStore.addToast("Введите Email", "warning");
+    return;
+  }
+
+  if (!emailReg.test(normalizedEmail)) {
     toastStore.addToast("Пожалуйста, введите корректный Email", "error");
+    return;
+  }
+
+  if (!password.value) {
+    toastStore.addToast("Введите пароль", "warning");
     return;
   }
 
@@ -140,21 +152,39 @@ const handleRegister = () => {
   }
 
   const users = JSON.parse(localStorage.getItem("morent_users") || "[]");
-  const userExists = users.find((u: any) => u.email === email.value);
+
+  const userExists = users.some(
+    (u: any) => u.email.toLowerCase() === normalizedEmail,
+  );
 
   if (userExists) {
-    toastStore.addToast("Пользователь с таким Email уже существует", "error");
+    toastStore.addToast(
+      "Пользователь с таким Email уже зарегистрирован",
+      "error",
+    );
     return;
   }
 
-  users.push({ email: email.value, password: password.value });
-  localStorage.setItem("morent_users", JSON.stringify(users));
+  try {
+    const newUser = {
+      email: normalizedEmail,
+      password: password.value,
+      createdAt: Date.now(),
+    };
 
-  toastStore.addToast(
-    "Регистрация успешна! Теперь вы можете войти.",
-    "success",
-  );
-  emit("switch-to-login");
+    users.push(newUser);
+    localStorage.setItem("morent_users", JSON.stringify(users));
+
+    toastStore.addToast(
+      "Регистрация прошла успешно 🎉 Теперь войдите в аккаунт",
+      "success",
+    );
+
+    emit("switch-to-login");
+  } catch (e) {
+    console.error(e);
+    toastStore.addToast("Ошибка при сохранении пользователя", "error");
+  }
 };
 </script>
 

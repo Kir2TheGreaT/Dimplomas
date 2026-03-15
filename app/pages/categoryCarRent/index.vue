@@ -255,7 +255,7 @@ const showMoreCars = () => {
       .switch {
         position: absolute;
         top: 38%;
-        left: 501px;
+        left: 490px;
         z-index: 5;
         transition: rotate 1s ease;
         @media (min-width: 375px) and (max-width: 1439px) {

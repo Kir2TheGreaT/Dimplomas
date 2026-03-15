@@ -1,7 +1,7 @@
 <template>
-  <header class="header">
+  <header class="header" @click="handleHeaderClick">
     <div class="main-header">
-      <button @click="sidebarNav.toggleSidebar()">
+      <button @click.stop="sidebarNav.toggleSidebar()">
         <menu-icon class="menu-icon" v-if="isSpecial" />
       </button>
       <h1 class="Logo" @click="goMain">MORENT</h1>
@@ -277,6 +277,14 @@ const handleMouseMove = (event: MouseEvent) => {
     const maxScroll = window.innerWidth - carWidth;
     const ratio = event.clientX / window.innerWidth;
     carX.value = ratio * maxScroll;
+  }
+};
+// работа сайдбара
+const sidebarContext = inject<any>("sidebarContext");
+
+const handleHeaderClick = () => {
+  if (sidebarContext?.isSidebarOpen.value) {
+    sidebarContext.isSidebarOpen.value = false;
   }
 };
 </script>

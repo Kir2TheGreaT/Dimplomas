@@ -210,6 +210,15 @@ const rentalStore = useRentalStore();
   overflow-x: hidden;
   position: relative;
 
+  @media (min-width: 565px) {
+    overflow: hidden;
+    position: relative;
+  }
+
+  @media (min-width: 1280px) and (max-width: 1439px) {
+    position: relative;
+  }
+
   .addsCars {
     max-width: 100%;
     display: flex;
@@ -221,14 +230,39 @@ const rentalStore = useRentalStore();
       var(--backgroundpages) 50%,
       var(--backgroundpages) 100%
     );
+
     .secondCard {
       display: none;
-    }
 
-    @media (min-width: 760px) {
-      .secondCard {
+      @media (min-width: 760px) {
         display: block;
       }
+    }
+  }
+
+  /* Этот класс добавляется динамически, поэтому он вынесен из медиазапросов */
+  .addsCarsFlex {
+    @media (min-width: 760px) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      gap: 1rem;
+      padding-right: 2rem;
+      padding-left: 2rem;
+      justify-content: center;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1439px) {
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+      background: var(--backgroundpages);
+    }
+
+    @media (min-width: 1440px) {
+      padding-left: 4rem;
+      padding-right: 4rem;
+      padding-top: 2rem;
+      background: var(--backgroundpages);
     }
   }
 
@@ -237,14 +271,66 @@ const rentalStore = useRentalStore();
     padding-left: 1.5rem;
     padding-right: 1.5rem;
     overflow: hidden;
+
+    @media (min-width: 565px) {
+      position: relative;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1439px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      gap: 9.25rem;
+    }
+
+    @media (min-width: 1440px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+      gap: 9.25rem;
+      padding: 2rem 4rem 4rem;
+    }
+
     .pick-up,
     .drop-off {
       position: relative;
       transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+
+      @media (min-width: 1280px) and (max-width: 1439px) {
+        position: relative;
+        transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+      }
+
+      @media (min-width: 1440px) {
+        position: relative;
+        transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
+      }
     }
 
     .pick-up {
       margin-bottom: 2rem;
+
+      @media (min-width: 1280px) and (max-width: 1439px) {
+        margin-bottom: 0;
+      }
+
+      @media (min-width: 1440px) {
+        margin-bottom: 0;
+        margin-right: 0;
+        margin-left: 0;
+      }
+    }
+
+    .drop-off {
+      @media (min-width: 1440px) {
+        margin-bottom: 0;
+        margin-right: 0;
+        margin-left: 0;
+      }
     }
 
     .switch {
@@ -253,17 +339,37 @@ const rentalStore = useRentalStore();
       top: 51%;
       left: 50%;
       translate: -50% -50%;
+
+      @media (min-width: 565px) {
+        position: absolute;
+        z-index: 5;
+        top: 58%;
+        left: 50%;
+        translate: -50% -50%;
+      }
+
+      @media (min-width: 1280px) and (max-width: 1439px) {
+        position: absolute;
+      }
+
+      @media (min-width: 1440px) {
+        position: absolute;
+        top: 45%;
+      }
+
       .icon-container {
         transition: transform 1s ease;
         display: flex;
       }
     }
+
     .switch.rotated {
       .icon-container {
         transform: rotate(180deg);
       }
     }
   }
+
   .popular_car {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
@@ -271,6 +377,12 @@ const rentalStore = useRentalStore();
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+
+    @media (min-width: 1440px) {
+      padding-bottom: 1.25rem;
+      padding-right: 4rem;
+      padding-left: 4rem;
+    }
 
     .view-all-link {
       cursor: pointer;
@@ -282,6 +394,10 @@ const rentalStore = useRentalStore();
       color: var(--secondary-300);
       font-size: 0.875rem;
       font-weight: 600;
+
+      @media (min-width: 1440px) {
+        font-size: 1rem;
+      }
     }
 
     p {
@@ -289,6 +405,10 @@ const rentalStore = useRentalStore();
       font-weight: 600;
       font-size: 0.75rem;
       color: var(--primary-500);
+
+      @media (min-width: 1440px) {
+        font-size: 1rem;
+      }
     }
   }
 
@@ -302,228 +422,28 @@ const rentalStore = useRentalStore();
     scroll-snap-type: x mandatory;
     width: 320px;
     overscroll-behavior-x: contain;
+
     @media (min-width: 750px) {
       width: 700px;
     }
+
     @media (min-width: 950px) {
       width: 900px;
     }
+
     @media (min-width: 1150px) {
       width: 1100px;
     }
+
     @media (min-width: 1280px) {
       width: 1230px;
     }
-  }
 
-  .recommendationText {
-    padding-left: 1.5rem;
-    padding-bottom: 1.25rem;
-    padding-top: 2rem;
-
-    p {
-      font-weight: 500;
-      font-size: 0.875rem;
-      color: var(--secondary-300);
-    }
-  }
-
-  .recommendationCarCard {
-    display: grid;
-    grid-template-columns: 1fr;
-
-    @media (min-width: 1280px) {
-      grid-template-columns: repeat(3, 1fr);
-    }
-    @media (min-width: 1440px) {
-      grid-template-columns: repeat(4, 1fr);
-    }
-
-    gap: 1.25rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-
-  .buttonsMainPage {
-    padding-left: 7.5rem;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    padding-top: 2rem;
-    padding-right: 1.5rem;
-    gap: 3rem;
-
-    .allCar {
-      font-weight: 700;
-      font-size: 0.875rem;
-      color: var(--secondary-300);
-      text-wrap: nowrap;
-    }
-  }
-}
-
-@media (min-width: 565px) {
-  .mainFirstPage {
-    overflow: hidden;
-    position: relative;
-
-    .buttons {
-      position: relative;
-
-      .switch {
-        position: absolute;
-        z-index: 5;
-        top: 58%;
-        left: 50%;
-        translate: -50% -50%;
-      }
-    }
-  }
-}
-
-@media (min-width: 760px) {
-  .mainFirstPage {
-    .buttonsMainPage {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-    .addsCarsFlex {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: nowrap;
-      gap: 1rem;
-      padding-right: 2rem;
-      padding-left: 2rem;
-      justify-content: center;
-    }
-    .recommendationCarCard {
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-  }
-}
-
-@media (min-width: 1280px) and (max-width: 1439px) {
-  .mainFirstPage {
-    position: relative;
-
-    .addsCarsFlex {
-      padding-top: 2rem;
-      padding-bottom: 2rem;
-      background: var(--backgroundpages);
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-      position: relative;
-      gap: 9.25rem;
-      .pick-up,
-      .drop-off {
-        position: relative;
-        transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
-      }
-
-      .pick-up {
-        margin-bottom: 0;
-      }
-      .switch {
-        position: absolute;
-      }
-    }
-
-    .buttonsMainPage {
-      display: flex;
-      flex-direction: row;
-      justify-content: center;
-      align-items: center;
-    }
-    .popular_car2 {
+    @media (min-width: 1280px) and (max-width: 1439px) {
       max-width: 1260px;
     }
-  }
-}
 
-@media (min-width: 1440px) {
-  .mainFirstPage {
-    .addsCarsFlex {
-      padding-left: 4rem;
-      padding-right: 4rem;
-      padding-top: 2rem;
-      background: var(--backgroundpages);
-    }
-
-    .buttons {
-      display: flex;
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: center;
-      position: relative;
-      gap: 9.25rem;
-      padding: 2rem 4rem 4rem;
-
-      .pick-up,
-      .drop-off {
-        position: relative;
-        transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1);
-      }
-
-      .pick-up {
-        margin-bottom: 0;
-        margin-right: 0;
-        margin-left: 0;
-      }
-
-      .drop-off {
-        margin-bottom: 0;
-        margin-right: 0;
-        margin-left: 0;
-      }
-      .switch {
-        position: absolute;
-        top: 45%;
-      }
-    }
-
-    .buttonsMainPage {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
-      align-items: center;
-      padding-right: 4rem;
-      padding-bottom: 4rem;
-      padding-top: 4rem;
-
-      .buttonAll {
-        grid-column: 2;
-      }
-
-      .allCar {
-        grid-column: 3;
-        justify-self: end;
-      }
-    }
-
-    .popular_car {
-      padding-bottom: 1.25rem;
-      padding-right: 4rem;
-      padding-left: 4rem;
-
-      h5 {
-        font-size: 1rem;
-      }
-
-      p {
-        font-size: 1rem;
-      }
-    }
-
-    .popular_car2 {
+    @media (min-width: 1440px) {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       gap: 2rem;
@@ -535,18 +455,101 @@ const rentalStore = useRentalStore();
       margin: 0 auto;
       overflow: hidden;
     }
+  }
 
-    .recommendationCarCard {
+  .recommendationText {
+    padding-left: 1.5rem;
+    padding-bottom: 1.25rem;
+    padding-top: 2rem;
+
+    @media (min-width: 1440px) {
+      padding-left: 4rem;
+    }
+
+    p {
+      font-weight: 500;
+      font-size: 0.875rem;
+      color: var(--secondary-300);
+
+      @media (min-width: 1440px) {
+        font-size: 1rem;
+        font-weight: 600;
+      }
+    }
+  }
+
+  .recommendationCarCard {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+
+    @media (min-width: 760px) {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    @media (min-width: 1280px) {
+      grid-template-columns: repeat(3, 1fr);
+    }
+
+    @media (min-width: 1440px) {
+      grid-template-columns: repeat(4, 1fr);
       padding-left: 4rem;
       padding-right: 4rem;
     }
+  }
 
-    .recommendationText {
-      padding-left: 4rem;
+  .buttonsMainPage {
+    padding-left: 7.5rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 2rem;
+    padding-right: 1.5rem;
+    gap: 3rem;
 
-      p {
-        font-size: 1rem;
-        font-weight: 600;
+    @media (min-width: 760px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 1280px) and (max-width: 1439px) {
+      display: flex;
+      flex-direction: row;
+      justify-content: center;
+      align-items: center;
+    }
+
+    @media (min-width: 1440px) {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding-right: 4rem;
+      padding-bottom: 4rem;
+      padding-top: 4rem;
+    }
+
+    .buttonAll {
+      @media (min-width: 1440px) {
+        grid-column: 2;
+      }
+    }
+
+    .allCar {
+      font-weight: 700;
+      font-size: 0.875rem;
+      color: var(--secondary-300);
+      text-wrap: nowrap;
+
+      @media (min-width: 1440px) {
+        grid-column: 3;
+        justify-self: end;
       }
     }
   }

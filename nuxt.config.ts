@@ -7,7 +7,6 @@ export default defineNuxtConfig({
 
   modules: [
     "@nuxt/image",
-    "@nuxt/fonts",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "vue-yandex-maps/nuxt",

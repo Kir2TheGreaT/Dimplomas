@@ -135,7 +135,7 @@ const addsCars = computed(() => ({
 // карточки подсчет до нажатия ALL
 const wideScreenQuantityCards = computed(() => {
   if (screenWidth.value >= 1440) return 4;
-  return 12;
+  return 6;
 });
 
 // вычисление анимации

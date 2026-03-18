@@ -20,12 +20,14 @@
             :key="item.id"
             class="dropdown-item"
           >
-            <img :src="item.image" alt="" />
-            <div class="item-info">
-              <p class="name">{{ item.name }}</p>
-              <p class="price">${{ item.price.toFixed(2) }}/day</p>
+            <div class="item-main" @click="goSummary(item.id)">
+              <img :src="item.image" alt="" />
+              <div class="item-info">
+                <p class="name">{{ item.name }}</p>
+                <p class="price">${{ item.price.toFixed(2) }}/day</p>
+              </div>
             </div>
-            <button class="trash-btn" @click="removeItem(item.id)">
+            <button class="trash-btn" @click.stop="removeItem(item.id)">
               <Trash />
             </button>
           </div>
@@ -57,11 +59,18 @@ import { products } from "~~/data/products";
 import { computed, ref, watch, nextTick, onMounted, onUnmounted } from "vue";
 import Close from "./icons/accountIcons/favoritesIcons/close.vue";
 import Trash from "./icons/accountIcons/favoritesIcons/trash.vue";
+import type { Product } from "~~/data/products";
 
 const props = defineProps<{
   isOpen: boolean;
   anchor: HTMLElement | null;
+  product: Product;
 }>();
+const router = useRouter();
+
+const goSummary = (id: number) => {
+  router.push(`/paymentCarRent/${id}`);
+};
 
 // закрытие элемента
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -221,6 +230,7 @@ watch(
         width: 60px;
         height: 40px;
         object-fit: contain;
+        transition: transform 0.3s ease;
       }
 
       .item-info {
@@ -254,6 +264,27 @@ watch(
 
         &:hover {
           color: #ed3f3f;
+        }
+      }
+      .item-main {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        flex-grow: 1;
+        cursor: pointer;
+        transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+
+        &:hover {
+          background-color: rgba(195, 212, 233, 0.1);
+          border-radius: 10px;
+
+          img {
+            transform: scale(1.05);
+          }
+
+          .item-info {
+            transform: translateX(4px);
+          }
         }
       }
     }

@@ -112,7 +112,7 @@ onUnmounted(() => {
   }
 
   .setTime {
-    gap: 1.25rem;
+    gap: 1rem;
     display: flex;
     flex-direction: row;
     padding-bottom: 1rem;

@@ -239,8 +239,6 @@ const rentalStore = useRentalStore();
       }
     }
   }
-
-  /* Этот класс добавляется динамически, поэтому он вынесен из медиазапросов */
   .addsCarsFlex {
     @media (min-width: 760px) {
       display: flex;
@@ -504,10 +502,11 @@ const rentalStore = useRentalStore();
   }
 
   .buttonsMainPage {
-    padding-left: 7.5rem;
+    padding-left: 1.5rem;
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: end;
     padding-top: 2rem;
     padding-right: 1.5rem;
     gap: 3rem;
@@ -533,6 +532,7 @@ const rentalStore = useRentalStore();
       padding-right: 4rem;
       padding-bottom: 4rem;
       padding-top: 4rem;
+      padding-left: 3.5rem;
     }
 
     .buttonAll {

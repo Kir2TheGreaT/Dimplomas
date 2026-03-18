@@ -112,7 +112,6 @@ const handleImageError = (event: Error) => {
   border-radius: 10px;
   position: relative;
   flex-grow: 1;
-  max-width: 304px;
   .tittle,
   .image,
   .specifications {
@@ -138,7 +137,6 @@ const handleImageError = (event: Error) => {
       h2,
       h5 {
         margin: 0;
-        text-wrap: nowrap;
       }
 
       h2 {

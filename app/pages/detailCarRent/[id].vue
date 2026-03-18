@@ -236,7 +236,7 @@ watch(isSidebarOpen, (isOpen) => {
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
         overscroll-behavior-x: contain;
-        width: 320px;
+        width: 100%;
       }
     }
     .recommendationCar {
@@ -254,7 +254,7 @@ watch(isSidebarOpen, (isOpen) => {
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
         overscroll-behavior-x: contain;
-        width: 320px;
+        width: 100%;
       }
     }
     .reviews {

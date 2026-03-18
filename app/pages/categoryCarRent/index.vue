@@ -211,7 +211,7 @@ const showMoreCars = () => {
   display: flex;
   flex-direction: row;
   justify-content: start;
-  overflow: hidden;
+  overflow-x: hidden;
 
   @media (min-width: 1440px) and (max-width: 1439px) {
     border-top: 1px var(--borderColor) solid;
@@ -244,7 +244,7 @@ const showMoreCars = () => {
         flex-direction: column;
         padding: 2rem 1.5rem;
         justify-content: start;
-        align-items: start;
+        align-items: center;
       }
       .pick-up,
       .drop-off {
@@ -254,17 +254,20 @@ const showMoreCars = () => {
 
       .switch {
         position: absolute;
-        top: 38%;
-        left: 490px;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
         z-index: 5;
-        transition: rotate 1s ease;
+        transition: all 1s ease;
+
         @media (min-width: 375px) and (max-width: 1439px) {
-          top: 42%;
-          left: 43%;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
         }
       }
       .switch.rotated {
-        rotate: 180deg;
+        transform: translate(-50%, -50%) rotate(180deg);
       }
     }
     .cards {
@@ -294,7 +297,7 @@ const showMoreCars = () => {
     @media (min-width: 1px) and (max-width: 1439px) {
       align-self: start;
       gap: 3rem;
-      padding-right: 1.5rem;
+
       .allCar {
         text-wrap: nowrap;
       }

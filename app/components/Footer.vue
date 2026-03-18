@@ -61,7 +61,6 @@ const goMain = (id: number) => {
   display: flex;
   flex-direction: column;
   background-color: var(--backgroundpages);
-  overflow: hidden;
   .title {
     display: flex;
     flex-direction: column;
@@ -74,7 +73,7 @@ const goMain = (id: number) => {
       color: var(--primary-500);
       font-size: 1.5rem;
       cursor: pointer;
-      &:hover{
+      &:hover {
         transform: scale(1.2);
         transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
       }
@@ -111,7 +110,7 @@ const goMain = (id: number) => {
         color: var(--secondary-500);
         font-size: 1.25rem;
         margin: 0;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           cursor: pointer;
@@ -123,7 +122,7 @@ const goMain = (id: number) => {
         color: var(--secondary-300);
         font-size: 1rem;
         margin: 0;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           cursor: pointer;
@@ -152,7 +151,7 @@ const goMain = (id: number) => {
         color: var(--secondary-500);
         font-size: 0.75rem;
         margin: 0;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           cursor: pointer;
@@ -171,7 +170,7 @@ const goMain = (id: number) => {
         color: var(--secondary-500);
         font-size: 0.75rem;
         margin: 0;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           cursor: pointer;
@@ -188,7 +187,7 @@ const goMain = (id: number) => {
         color: var(--secondary-500);
         font-size: 0.75rem;
         margin: 0;
-        &:hover{
+        &:hover {
           transform: scale(1.2);
           transition: transform 1s cubic-bezier(0.175, 0.885, 0.32, 1.275);
           cursor: pointer;

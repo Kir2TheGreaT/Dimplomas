@@ -12,7 +12,7 @@
 <script lang="ts" setup>
 import Footer from "~/components/Footer.vue";
 import Header from "~/components/Header.vue";
-import { ref, provide, onMounted, toDisplayString } from "vue";
+import { ref, provide, onMounted } from "vue";
 import TheToast from "~/components/TheToast.vue";
 onMounted(() => {
   const saveTheme = localStorage.getItem("theme");
@@ -50,7 +50,6 @@ provide("sidebarContext", { isSidebarOpen, toggleSidebar });
 }
 
 .header {
-  position: sticky;
   top: 0;
   z-index: 100;
 

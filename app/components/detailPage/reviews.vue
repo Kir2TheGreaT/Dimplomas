@@ -6,6 +6,32 @@
         <span>{{ reviews.length }}</span>
       </div>
     </div>
+
+    <div class="addReviewForm">
+      <textarea
+        v-model="newReviewText"
+        placeholder="Write your review..."
+        class="reviewArea"
+      ></textarea>
+
+      <div class="formActions">
+        <div class="ratingSelect">
+          <span>Rating:</span>
+          <select v-model="newReviewRating">
+            <option v-for="n in 5" :key="n" :value="n">{{ n }} Stars</option>
+          </select>
+        </div>
+
+        <button
+          @click="submitReview"
+          :disabled="!newReviewText.trim()"
+          class="postButton"
+        >
+          Post Review
+        </button>
+      </div>
+    </div>
+
     <div class="mainReviews">
       <TransitionGroup name="list">
         <div
@@ -21,27 +47,37 @@
                 <div class="userInformation">{{ review.position }}</div>
               </div>
             </div>
+
             <div class="ratingReview">
               <div class="dateReview">{{ review.date }}</div>
+
+              <button
+                v-if="review.name === 'You'"
+                @click="removeReview(review.id)"
+                class="deleteBtn"
+              >
+                Delete
+              </button>
+
               <div class="ratingStars">
                 <Star v-for="i in review.rating" :key="i"></Star>
               </div>
             </div>
           </div>
+
           <div class="textReview">
-            <p>
-              {{ review.text }}
-            </p>
+            <p>{{ review.text }}</p>
           </div>
         </div>
       </TransitionGroup>
     </div>
+
     <div class="showAll" v-if="reviews.length > 3">
       <div class="showAllButton" @click="handleToggle" ref="bottomAnchor">
         <button>
-          <span class="showAllText">{{
-            isExpanded ? "Hide" : "Show All"
-          }}</span>
+          <span class="showAllText">
+            {{ isExpanded ? "Hide" : "Show All" }}
+          </span>
         </button>
         <ArrowDown :style="arrowStyle" />
       </div>
@@ -50,20 +86,34 @@
 </template>
 
 <script lang="ts" setup>
+import { ref, computed, nextTick } from "vue";
 import ArrowDown from "../icons/arrow-down.vue";
 import Star from "../icons/star.vue";
-import { reviews } from "@/stores/reviews";
+import { reviews, addReview, removeReview } from "@/stores/reviews";
 
 const reviewsSection = ref<HTMLElement | null>(null);
 const bottomAnchor = ref<HTMLElement | null>(null);
 const isExpanded = ref(false);
+
+const newReviewText = ref("");
+const newReviewRating = ref(5);
+
 const visibleReviews = computed(() => {
   return isExpanded.value ? reviews.value : reviews.value.slice(0, 3);
 });
+
 const arrowStyle = computed(() => ({
   transform: isExpanded.value ? "rotate(180deg)" : "rotate(0deg)",
   transition: "transform 0.5s ease",
 }));
+
+const submitReview = () => {
+  if (newReviewText.value.trim()) {
+    addReview(newReviewText.value, newReviewRating.value);
+    newReviewText.value = "";
+    newReviewRating.value = 5;
+  }
+};
 
 const handleToggle = async () => {
   if (isExpanded.value) {
@@ -87,127 +137,226 @@ const handleToggle = async () => {
 <style>
 .mainHeadReviews {
   background-color: var(--primary-0);
+  border-radius: 10px;
+
   .headerReviews {
     display: flex;
-    flex-direction: row;
     align-items: center;
     gap: 0.75rem;
-    padding-left: 1.5rem;
-    padding-top: 1.5rem;
-    padding-bottom: 0.5rem;
+    padding: 1.5rem 1.5rem 0.5rem;
     font-size: 1.5rem;
     font-weight: 600;
     color: var(--secondary-500);
-    @media (min-width: 1px) and (max-width: 1000px) {
-      padding-left: 1rem;
-      padding-top: 1rem;
+
+    @media (max-width: 1000px) {
+      padding: 1rem 1rem 0.5rem;
     }
+
     .badgeReviews {
       background-color: var(--primary-500);
-      gap: 0.5rem;
       border-radius: 4px;
-      padding-left: 0.75rem;
-      padding-right: 0.75rem;
-      padding-top: 0.375rem;
-      padding-bottom: 0.375rem;
-      line-height: 1;
+      padding: 0.375rem 0.75rem;
       display: flex;
 
       span {
         font-size: 0.75rem;
-        font-weight: bold;
         color: var(--primary-0);
       }
     }
   }
-  .mainReviews {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-bottom: 1.5rem;
-    @media (min-width: 1px) and (max-width: 1000px) {
-      padding-left: 1rem;
-      padding-right: 1rem;
-      padding-bottom: 1.25rem;
+
+  .addReviewForm {
+    padding: 0 1.5rem 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    @media (max-width: 1000px) {
+      padding: 0 1rem 1rem;
     }
+
+    .reviewArea {
+      width: 96%;
+      min-height: 100px;
+      padding: 1rem;
+      border-radius: 10px;
+      border: 1px solid var(--secondary-200);
+      background-color: var(--primary-0);
+      color: var(--secondary-500);
+      font-size: 0.875rem;
+      font-family: inherit;
+      resize: none;
+      outline: none;
+      @media (min-width: 1px) and (max-width: 1280px) {
+        width: 92%;
+      }
+    }
+
+    .formActions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .ratingSelect {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--secondary-400);
+        font-size: 0.875rem;
+
+        select {
+          border: 1px solid var(--secondary-200);
+          border-radius: 5px;
+          padding: 0.25rem;
+        }
+      }
+
+      .postButton {
+        background-color: var(--primary-500);
+        color: var(--primary-0);
+        padding: 0.625rem 1.25rem;
+        border-radius: 5px;
+        font-weight: 600;
+        font-size: 0.875rem;
+        border: none;
+        cursor: pointer;
+
+        &:disabled {
+          opacity: 0.5;
+        }
+      }
+    }
+
+    @media (max-width: 600px) {
+      gap: 0.75rem;
+
+      .reviewArea {
+        min-height: 80px;
+        font-size: 0.8rem;
+        padding: 0.75rem;
+      }
+
+      .formActions {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 0.75rem;
+
+        .ratingSelect {
+          width: 100%;
+          justify-content: space-between;
+
+          span {
+            font-size: 0.8rem;
+          }
+
+          select {
+            flex: 1;
+            padding: 0.4rem;
+            font-size: 0.8rem;
+          }
+        }
+
+        .postButton {
+          width: 100%;
+          padding: 0.75rem;
+          font-size: 0.9rem;
+          border-radius: 8px;
+        }
+      }
+    }
+  }
+
+  .mainReviews {
+    padding: 0 1.5rem 1.5rem;
+
+    @media (max-width: 1000px) {
+      padding: 0 1rem 1.25rem;
+    }
+
     .oneReview {
       .topOneReview {
         display: flex;
-        flex-direction: row;
         justify-content: space-between;
         padding-top: 1.5rem;
-        @media (min-width: 1px) and (max-width: 1000px) {
+
+        @media (max-width: 1000px) {
           padding-top: 1rem;
         }
+
         .profile {
-          gap: 1rem;
           display: flex;
-          flex-direction: row;
           align-items: end;
+          gap: 1rem;
+
           .avatarProfile {
             width: 56px;
             height: 56px;
             border-radius: 50%;
-            aspect-ratio: 1 / 1;
             object-fit: cover;
-            object-position: center;
-            @media (min-width: 1px) and (max-width: 1000px) {
+
+            @media (max-width: 1000px) {
               width: 44px;
               height: 44px;
             }
           }
+
           .userReviewInfotmation {
-            gap: 0.5rem;
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            gap: 0.5rem;
+
             .nameInformation {
               color: var(--secondary-500);
               font-size: 1.25rem;
               font-weight: 700;
-              @media (min-width: 1px) and (max-width: 1000px) {
+
+              @media (max-width: 1000px) {
                 font-size: 1rem;
               }
             }
+
             .userInformation {
               color: var(--secondary-300);
               font-size: 0.875rem;
-              font-weight: 500;
-              @media (min-width: 1px) and (max-width: 1000px) {
+
+              @media (max-width: 1000px) {
                 font-size: 0.75rem;
               }
             }
           }
         }
+
         .ratingReview {
           display: flex;
           flex-direction: column;
           align-items: end;
           gap: 0.5rem;
+
           .dateReview {
             color: var(--secondary-300);
             font-size: 0.875rem;
-            font-weight: 500;
-            padding-right: 5px;
-            @media (min-width: 1px) and (max-width: 1000px) {
+
+            @media (max-width: 1000px) {
               font-size: 0.75rem;
-              display: flex;
-              align-items: center;
-              justify-content: center;
-              padding-top: 6px;
-              padding-right: 0;
             }
           }
+
+          .deleteBtn {
+            background: none;
+            border: none;
+            color: #ed3f3f;
+            font-size: 0.75rem;
+            text-decoration: underline;
+            cursor: pointer;
+          }
+
           .ratingStars {
             display: flex;
-            @media (min-width: 1px) and (max-width: 1000px) {
-              flex-direction: row;
-              align-items: end;
-              margin-top: -1px;
-            }
+
             .icon-container {
               color: #fbad39;
-              display: flex;
-              @media (min-width: 1px) and (max-width: 1000px) {
+
+              @media (max-width: 1000px) {
                 width: 0.75rem;
                 height: 0.75rem;
               }
@@ -215,14 +364,14 @@ const handleToggle = async () => {
           }
         }
       }
+
       .textReview {
         padding-top: 0.75rem;
         padding-left: 4.75rem;
-        padding-right: 1.5rem;
-        @media (min-width: 1px) and (max-width: 1000px) {
+
+        @media (max-width: 1000px) {
+          padding-left: 0;
           padding-top: 1rem;
-          padding-left: 4.25rem;
-          padding-right: 1rem;
         }
 
         p {
@@ -230,39 +379,37 @@ const handleToggle = async () => {
           line-height: 200%;
           color: var(--secondary-400);
           font-size: 0.875rem;
-          font-weight: 400;
-          @media (min-width: 1px) and (max-width: 1000px) {
+
+          @media (max-width: 1000px) {
             font-size: 0.75rem;
           }
         }
       }
     }
   }
+
   .showAll {
     padding-bottom: 1.5rem;
-    @media (min-width: 1px) and (max-width: 1000px) {
-      padding-bottom: 1rem;
-    }
+
     .showAllButton {
       display: flex;
       justify-content: center;
       align-items: center;
       gap: 0.5rem;
-      padding-bottom: 0.625rem;
-      padding-left: 1.25rem;
-      padding-right: 1.25rem;
 
       .showAllText {
         font-size: 1rem;
         font-weight: 600;
         color: var(--secondary-300);
-        @media (min-width: 1px) and (max-width: 1000px) {
+
+        @media (max-width: 1000px) {
           font-size: 0.875rem;
         }
       }
     }
   }
 }
+
 .list-enter-active,
 .list-leave-active {
   transition: all 0.5s ease;

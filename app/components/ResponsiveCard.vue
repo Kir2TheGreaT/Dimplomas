@@ -112,6 +112,7 @@ const handleImageError = (event: Error) => {
   border-radius: 10px;
   position: relative;
   flex-grow: 1;
+  max-width: 304px;
   .tittle,
   .image,
   .specifications {

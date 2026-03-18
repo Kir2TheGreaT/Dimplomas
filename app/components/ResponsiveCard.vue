@@ -75,8 +75,6 @@ const handleImageError = (event: Error) => {
         />
       </div>
 
-      <img src="/shadows/shadow.png" alt="" class="shadow" />
-
       <div class="specifications" @click="goCategory(props.product.id)">
         <div class="item">
           <gas class="itemIcon" />
@@ -210,14 +208,6 @@ const handleImageError = (event: Error) => {
         max-width: 160px;
         max-height: 70px;
       }
-    }
-    .shadow {
-      display: flex;
-      position: absolute;
-      top: 46%;
-      border-bottom-left-radius: 10px;
-      border-bottom-right-radius: 10px;
-      max-height: 40px;
     }
     .specifications {
       display: flex;

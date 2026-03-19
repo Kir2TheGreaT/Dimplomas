@@ -356,7 +356,7 @@ const timeConfig = ref({
   opacity: 1;
 }
 .location {
-  position: relative; /* Чтобы список позиционировался относительно этого блока */
+  position: relative;
   cursor: pointer;
 }
 

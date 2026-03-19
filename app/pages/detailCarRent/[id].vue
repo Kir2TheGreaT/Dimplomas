@@ -192,6 +192,8 @@ watch(isSidebarOpen, (isOpen) => {
       @media (min-width: 1px) and (max-width: 1000px) {
         display: flex;
         flex-direction: column;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
       .imageDetails {
         display: flex;
@@ -237,6 +239,8 @@ watch(isSidebarOpen, (isOpen) => {
         scroll-snap-type: x mandatory;
         overscroll-behavior-x: contain;
         width: 320px;
+        padding-left: 1rem;
+        padding-right: 1rem;
       }
     }
     .recommendationCar {
@@ -254,6 +258,8 @@ watch(isSidebarOpen, (isOpen) => {
         overflow-y: hidden;
         scroll-snap-type: x mandatory;
         overscroll-behavior-x: contain;
+        padding-left: 1rem;
+        padding-right: 1rem;
         width: 320px;
       }
     }

@@ -132,7 +132,7 @@ const activePreview = ref("car");
   align-items: center;
   max-width: 492px;
   @media (min-width: 1px) and (max-width: 1000px) {
-    max-width: 328px;
+    max-width: 327px;
   }
   .firstPreviewImg {
     background-color: var(--primary-500);

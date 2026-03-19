@@ -170,10 +170,45 @@ onMounted(() => {
     disableMobile: true,
   };
 
-  if (pickupDateInput.value) flatpickr(pickupDateInput.value, dateCfg);
-  if (dropoffDateInput.value) flatpickr(dropoffDateInput.value, dateCfg);
-  if (pickupTimeInput.value) flatpickr(pickupTimeInput.value, timeCfg);
-  if (dropoffTimeInput.value) flatpickr(dropoffTimeInput.value, timeCfg);
+  if (pickupDateInput.value) {
+    flatpickr(pickupDateInput.value, {
+      ...dateCfg,
+      defaultDate: rentalStore.pickup.date,
+      onChange: (selectedDates, dateStr) => {
+        rentalStore.pickup.date = dateStr;
+      },
+    });
+  }
+
+  if (dropoffDateInput.value) {
+    flatpickr(dropoffDateInput.value, {
+      ...dateCfg,
+      defaultDate: rentalStore.dropoff.date,
+      onChange: (selectedDates, dateStr) => {
+        rentalStore.dropoff.date = dateStr;
+      },
+    });
+  }
+
+  if (pickupTimeInput.value) {
+    flatpickr(pickupTimeInput.value, {
+      ...timeCfg,
+      defaultDate: rentalStore.pickup.time,
+      onChange: (selectedDates, dateStr) => {
+        rentalStore.pickup.time = dateStr;
+      },
+    });
+  }
+
+  if (dropoffTimeInput.value) {
+    flatpickr(dropoffTimeInput.value, {
+      ...timeCfg,
+      defaultDate: rentalStore.dropoff.time,
+      onChange: (selectedDates, dateStr) => {
+        rentalStore.dropoff.time = dateStr;
+      },
+    });
+  }
 });
 </script>
 

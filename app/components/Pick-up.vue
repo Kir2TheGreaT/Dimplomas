@@ -5,20 +5,39 @@
       <h5>{{ title }}</h5>
     </div>
     <div class="setTime">
-      <div class="location side">
+      <div class="location side" ref="locationRef">
         <p>Locations</p>
-        <div class="text">
+        <div class="text" @click="toggleLocation">
           <p>{{ data.location || "Select your city" }}</p>
-          <button class="arrowButton"><ArrowDown /></button>
+          <button class="arrowButton">
+            <ArrowDown :class="{ rotated: isLocationOpen }" />
+          </button>
         </div>
+        <Transition name="fade">
+          <ul v-if="isLocationOpen" class="cityList">
+            <li
+              v-for="city in cities"
+              :key="city"
+              @click.stop="selectCity(city)"
+              :class="{ active: data.location === city }"
+            >
+              {{ city }}
+            </li>
+          </ul>
+        </Transition>
       </div>
 
       <div class="border"></div>
 
       <div class="date">
         <p>Date</p>
-        <div class="text">
-          <p>{{ data.date || "Select date" }}</p>
+        <div class="text" @click="openDatePicker">
+          <flat-pickr
+            v-model="localDate"
+            :config="dateConfig"
+            class="flatpickr-custom-input"
+            placeholder="Select date"
+          />
           <button class="arrowButton"><ArrowDown /></button>
         </div>
       </div>
@@ -27,8 +46,13 @@
 
       <div class="time side">
         <p>Time</p>
-        <div class="text">
-          <p>{{ data.time || "Select time" }}</p>
+        <div class="text" @click="openTimePicker">
+          <flat-pickr
+            v-model="localTime"
+            :config="timeConfig"
+            class="flatpickr-custom-input"
+            placeholder="Select time"
+          />
           <button class="arrowButton"><ArrowDown /></button>
         </div>
       </div>
@@ -37,10 +61,31 @@
 </template>
 
 <script lang="ts" setup>
-import { ref, reactive, onMounted, onUnmounted, computed } from "vue";
+import { ref, onMounted, onUnmounted, watch } from "vue";
 import ArrowDown from "./icons/arrow-down.vue";
+import flatPickr from "vue-flatpickr-component";
+import "flatpickr/dist/flatpickr.css";
 
-defineProps<{
+const cities = [
+  "Moscow",
+  "London",
+  "New York",
+  "Tokyo",
+  "Paris",
+  "Berlin",
+  "Dubai",
+  "Singapore",
+  "Los Angeles",
+  "Barcelona",
+  "Rome",
+  "Prague",
+  "Amsterdam",
+  "Seoul",
+  "Madrid",
+  "Istanbul",
+];
+
+const props = defineProps<{
   title: string;
   data: {
     location: string;
@@ -48,31 +93,48 @@ defineProps<{
     time: string;
   };
 }>();
+const emit = defineEmits(["update:date", "update:time", "update:location"]);
+onMounted(() => document.addEventListener("click", handleClickOutside));
+onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
-const currentDate = ref("");
-const currentTime = ref("");
-
-const updateDateTime = () => {
-  const now = new Date();
-  currentDate.value = now.toLocaleDateString("en-EN", {
-    day: "2-digit",
-    month: "short",
-    year: "numeric",
-  });
-  currentTime.value = now.toLocaleTimeString("en-EN", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+const isLocationOpen = ref(false);
+const locationRef = ref<HTMLElement | null>(null);
+const toggleLocation = () => {
+  isLocationOpen.value = !isLocationOpen.value;
 };
+const selectCity = (city: string) => {
+  emit("update:location", city);
+  isLocationOpen.value = false;
+};
+const handleClickOutside = (event: MouseEvent) => {
+  if (locationRef.value && !locationRef.value.contains(event.target as Node)) {
+    isLocationOpen.value = false;
+  }
+};
+const localDate = ref(props.data.date);
+const localTime = ref(props.data.time);
+const openDatePicker = () => datePickerRef.value?.fp?.open();
+const openTimePicker = () => timePickerRef.value?.fp?.open();
 
-let timer: number;
-onMounted(() => {
-  updateDateTime();
-  timer = setInterval(updateDateTime, 1000);
+watch(localDate, (newDate) => {
+  emit("update:date", newDate);
+});
+watch(localTime, (newTime) => {
+  emit("update:time", newTime);
 });
 
-onUnmounted(() => {
-  clearInterval(timer);
+const dateConfig = ref({
+  dateFormat: "d M Y",
+  minDate: "today",
+  disableMobile: true,
+});
+
+const timeConfig = ref({
+  enableTime: true,
+  noCalendar: true,
+  dateFormat: "H:i",
+  time_24hr: true,
+  disableMobile: true,
 });
 </script>
 
@@ -112,12 +174,12 @@ onUnmounted(() => {
   }
 
   .setTime {
-    gap: 1rem;
+    gap: 0.9rem;
     display: flex;
     flex-direction: row;
     padding-bottom: 1rem;
-    padding-left: 1rem;
-    padding-right: 1rem;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
 
     .border {
       border-right: 1px solid rgba(195, 212, 233, 0.4);
@@ -273,5 +335,79 @@ onUnmounted(() => {
     transform: scale(1);
     outline-color: rgba(53, 99, 233, 0.3);
   }
+}
+.flatpickr-custom-input {
+  font-family: inherit;
+  font-size: 0.75rem;
+  font-weight: 400;
+  color: var(--secondary-300);
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+  width: 68px;
+  white-space: nowrap;
+}
+
+.flatpickr-custom-input::placeholder {
+  color: var(--secondary-300);
+  opacity: 1;
+}
+.location {
+  position: relative; /* Чтобы список позиционировался относительно этого блока */
+  cursor: pointer;
+}
+
+.cityList {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 200px;
+  background: var(--primary-0);
+  border: 1px solid var(--borderColor);
+  border-radius: 10px;
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+  margin-top: 0.5rem;
+  z-index: 999;
+  list-style: none;
+  padding: 0.5rem 0;
+
+  max-height: 200px;
+  overflow-y: auto;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--primary-500) transparent;
+}
+
+.cityList::-webkit-scrollbar {
+  width: 6px;
+}
+.cityList::-webkit-scrollbar-thumb {
+  background-color: var(--primary-500);
+  border-radius: 10px;
+}
+
+.cityList li {
+  padding: 0.75rem 1rem;
+  font-size: 0.875rem;
+  color: var(--secondary-500);
+  cursor: pointer;
+}
+
+.cityList li:hover {
+  background: var(--backgroundpages);
+}
+.cityList li.active {
+  color: var(--primary-500);
+  font-weight: 600;
+}
+
+.arrowButton {
+  transition: transform 0.3s ease;
+}
+.arrowButton.rotated {
+  transform: rotate(180deg);
 }
 </style>

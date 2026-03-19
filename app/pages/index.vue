@@ -21,6 +21,9 @@
         :class="{ switched: isSwitched }"
         :style="pickUpStyle"
         :data="rentalStore.pickup"
+        @update:location="(val) => (rentalStore.pickup.location = val)"
+        @update:date="(val) => (rentalStore.pickup.date = val)"
+        @update:time="(val) => (rentalStore.pickup.time = val)"
       />
 
       <SwitchButton
@@ -37,6 +40,9 @@
         :class="{ switched: isSwitched }"
         :style="dropOffStyle"
         :data="rentalStore.dropoff"
+        @update:location="(val) => (rentalStore.dropoff.location = val)"
+        @update:date="(val) => (rentalStore.dropoff.date = val)"
+        @update:time="(val) => (rentalStore.dropoff.time = val)"
       />
     </div>
     <div class="popular_car">
@@ -268,8 +274,6 @@ const rentalStore = useRentalStore();
     position: relative;
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-    overflow: hidden;
-
     @media (min-width: 565px) {
       position: relative;
     }

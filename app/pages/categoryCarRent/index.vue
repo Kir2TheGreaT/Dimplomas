@@ -22,6 +22,9 @@
           :class="{ switched: isSwitched }"
           :data="rentalStore.pickup"
           :style="pickUpStyle"
+          @update:date="(newDate) => (rentalStore.pickup.date = newDate)"
+          @update:time="(newTime) => (rentalStore.pickup.time = newTime)"
+          @update:location="(val) => (rentalStore.pickup.location = val)"
         />
 
         <SwitchButton
@@ -37,6 +40,9 @@
           :class="{ switched: isSwitched }"
           :data="rentalStore.dropoff"
           :style="dropOffStyle"
+          @update:date="(newDate) => (rentalStore.dropoff.date = newDate)"
+          @update:time="(newTime) => (rentalStore.dropoff.time = newTime)"
+          @update:location="(val) => (rentalStore.dropoff.location = val)"
         />
       </div>
       <div class="cards">
@@ -255,7 +261,7 @@ const showMoreCars = () => {
       .switch {
         position: absolute;
         top: 50%;
-        left: 50%;
+        left: 52.2%;
         transform: translate(-50%, -50%);
         z-index: 5;
         transition: all 1s ease;

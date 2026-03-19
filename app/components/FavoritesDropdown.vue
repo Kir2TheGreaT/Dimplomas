@@ -59,12 +59,10 @@ import { products } from "~~/data/products";
 import { computed, ref, watch, nextTick, onMounted, onUnmounted } from "vue";
 import Close from "./icons/accountIcons/favoritesIcons/close.vue";
 import Trash from "./icons/accountIcons/favoritesIcons/trash.vue";
-import type { Product } from "~~/data/products";
 
 const props = defineProps<{
   isOpen: boolean;
   anchor: HTMLElement | null;
-  product: Product;
 }>();
 const router = useRouter();
 

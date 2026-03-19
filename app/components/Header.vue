@@ -474,7 +474,7 @@ const handleHeaderClick = () => {
         }
         .favorite-nav-btn {
           &.is-active {
-            @media (min-width: 375px) and (max-width: 1280px) {
+            @media (min-width: 1px) and (max-width: 1280px) {
               .icon-wrap {
                 display: flex;
                 flex-direction: row;

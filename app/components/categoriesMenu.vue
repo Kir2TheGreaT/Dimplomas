@@ -311,6 +311,7 @@ watch(
       flex-direction: column;
       max-width: 296px;
       width: 100%;
+      padding-bottom: 5rem;
 
       .range-container {
         position: relative;

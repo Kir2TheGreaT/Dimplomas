@@ -90,7 +90,7 @@ $lgyT: rgba(160, 160, 160, 0);
   background: $sky;
   z-index: 9999;
   overflow: hidden;
-  font-size: clamp(8px, 3.5vw, 16px);
+  font-size: clamp(8px, 1.5vw, 16px);
 }
 
 *,

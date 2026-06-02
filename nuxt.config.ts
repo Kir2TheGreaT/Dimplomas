@@ -50,10 +50,11 @@ export default defineNuxtConfig({
 
   // ==================== YANDEX MAPS ====================
   yandexMaps: {
-    apikey: process.env.NUXT_PUBLIC_YANDEX_MAPS_APIKEY || "",
+    apikey: process.env.NUXT_PUBLIC_YANDEX_MAPS_APIKEY,
     lang: "ru_RU",
     version: "v3",
     initializeOn: "onPluginInit",
+    ssr: false,
   },
 
   vite: {

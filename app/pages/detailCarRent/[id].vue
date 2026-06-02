@@ -85,23 +85,33 @@ import CategoriesMenu from "~/components/categoriesMenu.vue";
 
 // получение нужной карточки
 const route = useRoute();
-const productId = Number(route.params.id);
-const product = computed(() => products.find((p) => p.id === productId));
+const productId: number = Number(route.params.id);
+
+const product = computed<Product | undefined>(() =>
+  products.find((p) => p.id === productId),
+);
 
 // фильтры
 // передача карточек из фильтра
-const currentFilters = reactive({
-  types: [] as string[],
-  capacities: [] as number[],
+interface Filters {
+  types: string[];
+  capacities: number[];
+  price: number;
+}
+
+const currentFilters = reactive<Filters>({
+  types: [],
+  capacities: [],
   price: 200,
 });
-const handleFilters = (newFilter: any) => {
+
+const handleFilters = (newFilter: Filters): void => {
   currentFilters.types = newFilter.types;
   currentFilters.capacities = newFilter.capacities;
   currentFilters.price = newFilter.price;
 };
 
-const filteredProducts = computed(() => {
+const filteredProducts = computed<Product[]>(() => {
   return products.filter((car) => {
     const matchPrice = car.price <= currentFilters.price;
 
@@ -128,20 +138,20 @@ const recommendationProducts = computed<Product[]>(() =>
   filteredProducts.value.slice(0, wideScreenQuantityCards.value),
 );
 
-const isWideScreen = ref(false);
-const screenWidth = ref(0);
+const isWideScreen = ref<boolean>(false);
+const screenWidth = ref<number>(0);
 
 onMounted(() => {
   checkScreenWidth();
   window.addEventListener("resize", checkScreenWidth);
 });
 
-const checkScreenWidth = () => {
+const checkScreenWidth = (): void => {
   screenWidth.value = window.innerWidth;
   isWideScreen.value = screenWidth.value >= 760;
 };
 
-const wideScreenQuantityCards = computed(() => {
+const wideScreenQuantityCards = computed<number>(() => {
   if (screenWidth.value >= 1440) return 3;
   return 12;
 });
@@ -152,13 +162,25 @@ definePageMeta({
 });
 
 // сайдбар
-const sidebarContext = inject<any>("sidebarContext");
-const isSidebarOpen = computed(() => sidebarContext.isSidebarOpen.value);
-const closeSidebar = () => {
-  if (sidebarContext) sidebarContext.isSidebarOpen.value = false;
+interface SidebarContext {
+  isSidebarOpen: {
+    value: boolean;
+  };
+}
+
+const sidebarContext = inject<SidebarContext | null>("sidebarContext", null);
+
+const isSidebarOpen = computed<boolean>(
+  () => sidebarContext?.isSidebarOpen.value ?? false,
+);
+
+const closeSidebar = (): void => {
+  if (sidebarContext) {
+    sidebarContext.isSidebarOpen.value = false;
+  }
 };
 
-watch(isSidebarOpen, (isOpen) => {
+watch(isSidebarOpen, (isOpen: boolean) => {
   if (isOpen) {
     document.body.style.overflow = "hidden";
   } else {

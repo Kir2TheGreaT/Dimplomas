@@ -57,12 +57,16 @@ import TickSquare from "../../icons/tickSquare.vue";
 import { ref } from "vue";
 import { usePaymentStore } from "@/stores/toast";
 import { useRentalStore } from "@/stores/rental";
+
 const store = usePaymentStore();
-const isSubmitting = ref(false);
 const rentalStore = useRentalStore();
+
+const isSubmitting = ref<boolean>(false);
 const agreements = ref<string[]>([]);
 
-const toggleOption = (option: string) => {
+type AgreementOption = "marketing" | "terms";
+
+const toggleOption = (option: AgreementOption): void => {
   const index = agreements.value.indexOf(option);
   if (index === -1) {
     agreements.value.push(option);
@@ -94,6 +98,7 @@ function isValidCardNumber(cardNumber: string): boolean {
 
   return sum % 10 === 0;
 }
+
 function isValidExpiration(date: string): boolean {
   const match = date.match(/^(\d{2})\s?\/\s?(\d{2})$/);
   if (!match) return false;
@@ -108,12 +113,12 @@ function isValidExpiration(date: string): boolean {
 
   return expiration > now;
 }
+
 function isValidCVC(cvc: string): boolean {
   return /^\d{3,4}$/.test(cvc);
 }
-//
 
-const handleRentNow = async () => {
+const handleRentNow = async (): Promise<void> => {
   const b = store.billing;
   const p = store.payment;
   const r = rentalStore;
@@ -135,6 +140,7 @@ const handleRentNow = async () => {
     );
     return;
   }
+
   if (!r.dropoff.location || !r.dropoff.date || !r.dropoff.time) {
     store.addToast(
       "Ошибка в Шаге 2: Укажите данные Drop-Off (место, дата, время)",
@@ -152,10 +158,12 @@ const handleRentNow = async () => {
       );
       return;
     }
+
     if (!isValidCardNumber(p.cardNumber)) {
       store.addToast("Шаг 3: Неверный номер карты", "error");
       return;
     }
+
     if (!isValidExpiration(p.expirationDate)) {
       store.addToast(
         "Шаг 3: Срок действия карты истек или указан неверно",
@@ -163,6 +171,7 @@ const handleRentNow = async () => {
       );
       return;
     }
+
     if (!isValidCVC(p.cvc)) {
       store.addToast("Шаг 3: Некорректный CVC код", "error");
       return;
@@ -189,9 +198,9 @@ const handleRentNow = async () => {
 
     console.log("Отправка заказа:", finalOrder);
 
-    await new Promise((resolve) => setTimeout(resolve, 2000));
+    await new Promise<void>((resolve) => setTimeout(resolve, 2000));
     store.addToast("Бронирование успешно завершено!", "success");
-  } catch (e) {
+  } catch (e: unknown) {
     store.addToast("Произошла ошибка при соединении с сервером", "error");
   } finally {
     isSubmitting.value = false;

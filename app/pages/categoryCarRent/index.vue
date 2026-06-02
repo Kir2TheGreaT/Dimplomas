@@ -83,32 +83,42 @@ import { ref, computed, onMounted, reactive, inject, watch } from "vue";
 import { products } from "~~/data/products.ts";
 import CategoriesMenu from "~/components/categoriesMenu.vue";
 
-const isWideScreen = ref(false);
-const screenWidth = ref(0);
+const isWideScreen = ref<boolean>(false);
+const screenWidth = ref<number>(0);
+
 onMounted(() => {
   checkScreenWidth();
   window.addEventListener("resize", checkScreenWidth);
 });
-const checkScreenWidth = () => {
+
+const checkScreenWidth = (): void => {
   screenWidth.value = window.innerWidth;
   isWideScreen.value = screenWidth.value >= 760;
 };
+
 // количество карточек
-const wideScreenQuantityCards = computed(() => {
+const wideScreenQuantityCards = computed<number>(() => {
   if (screenWidth.value >= 1440) return 9;
   return 12;
 });
 
 //переключение виджетов
-const isSwitched = ref(false);
+const isSwitched = ref<boolean>(false);
 
 // передача карточек из фильтра
-const currentFilters = reactive({
-  types: [] as string[],
-  capacities: [] as number[],
+interface Filters {
+  types: string[];
+  capacities: number[];
+  price: number;
+}
+
+const currentFilters = reactive<Filters>({
+  types: [],
+  capacities: [],
   price: 200,
 });
-const handleFilters = (newFilter: any) => {
+
+const handleFilters = (newFilter: Filters): void => {
   currentFilters.types = newFilter.types;
   currentFilters.capacities = newFilter.capacities;
   currentFilters.price = newFilter.price;
@@ -136,13 +146,25 @@ definePageMeta({
 });
 
 // сайдбар
-const sidebarContext = inject<any>("sidebarContext");
-const isSidebarOpen = computed(() => sidebarContext.isSidebarOpen.value);
-const closeSidebar = () => {
-  if (sidebarContext) sidebarContext.isSidebarOpen.value = false;
+interface SidebarContext {
+  isSidebarOpen: {
+    value: boolean;
+  };
+}
+
+const sidebarContext = inject<SidebarContext | null>("sidebarContext", null);
+
+const isSidebarOpen = computed<boolean>(
+  () => sidebarContext?.isSidebarOpen.value ?? false,
+);
+
+const closeSidebar = (): void => {
+  if (sidebarContext) {
+    sidebarContext.isSidebarOpen.value = false;
+  }
 };
 
-watch(isSidebarOpen, (value) => {
+watch(isSidebarOpen, (value: boolean) => {
   if (value && !isSidebarOpen.value) {
     document.body.style.overflow = "hidden";
   } else {
@@ -154,37 +176,50 @@ watch(isSidebarOpen, (value) => {
 const rentalStore = useRentalStore();
 
 // вычисление анимации
-const switchToggle = () => {
+const switchToggle = (): void => {
   calculateDistance();
-
   isSwitched.value = !isSwitched.value;
 };
 
-const pickUpRef = ref(null);
+type ComponentWithEl = {
+  $el?: HTMLElement;
+};
 
-const dropOffRef = ref(null);
+const pickUpRef = ref<ComponentWithEl | HTMLElement | null>(null);
+const dropOffRef = ref<ComponentWithEl | HTMLElement | null>(null);
 
-const dist = reactive({ x: 0, y: 0 });
+const dist = reactive<{
+  x: number;
+  y: number;
+}>({
+  x: 0,
+  y: 0,
+});
 
-const calculateDistance = () => {
-  const el1 = pickUpRef.value?.$el || pickUpRef.value;
+const calculateDistance = (): void => {
+  const el1 =
+    pickUpRef.value && "$el" in pickUpRef.value
+      ? pickUpRef.value.$el
+      : pickUpRef.value;
 
-  const el2 = dropOffRef.value?.$el || dropOffRef.value;
+  const el2 =
+    dropOffRef.value && "$el" in dropOffRef.value
+      ? dropOffRef.value.$el
+      : dropOffRef.value;
 
   if (el1 && el2) {
     dist.x = el2.offsetLeft - el1.offsetLeft;
-
     dist.y = el2.offsetTop - el1.offsetTop;
   }
 };
 
-const pickUpStyle = computed(() =>
+const pickUpStyle = computed<Record<string, string>>(() =>
   isSwitched.value
     ? { transform: `translate(${dist.x}px, ${dist.y}px)` }
     : { transform: "none" },
 );
 
-const dropOffStyle = computed(() =>
+const dropOffStyle = computed<Record<string, string>>(() =>
   isSwitched.value
     ? { transform: `translate(${-dist.x}px, ${-dist.y}px)` }
     : { transform: "none" },
@@ -192,16 +227,23 @@ const dropOffStyle = computed(() =>
 
 // Кнопка больше машин
 
-const baseCount = computed(() => (screenWidth.value >= 1440 ? 9 : 12));
-const extraCarsCount = ref(0);
-const visibleLimit = computed(() => baseCount.value + extraCarsCount.value);
-const isAllShown = computed(() => {
+const baseCount = computed<number>(() => (screenWidth.value >= 1440 ? 9 : 12));
+
+const extraCarsCount = ref<number>(0);
+
+const visibleLimit = computed<number>(
+  () => baseCount.value + extraCarsCount.value,
+);
+
+const isAllShown = computed<boolean>(() => {
   return visibleLimit.value >= filteredProducts.value.length;
 });
-const buttonLabel = computed(() => {
+
+const buttonLabel = computed<string>(() => {
   return isAllShown.value ? "Show Start" : "Show More Car";
 });
-const showMoreCars = () => {
+
+const showMoreCars = (): void => {
   if (isAllShown.value) {
     extraCarsCount.value = 0;
   } else {

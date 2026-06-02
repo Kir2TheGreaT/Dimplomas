@@ -87,27 +87,38 @@
 
 <script lang="ts" setup>
 import { ref, computed, nextTick } from "vue";
+import type { Ref } from "vue";
 import ArrowDown from "../icons/arrow-down.vue";
 import Star from "../icons/star.vue";
 import { reviews, addReview, removeReview } from "@/stores/reviews";
 
+interface Review {
+  id: number | string;
+  name: string;
+  position: string;
+  avatar: string;
+  date: string;
+  rating: number;
+  text: string;
+}
+
 const reviewsSection = ref<HTMLElement | null>(null);
 const bottomAnchor = ref<HTMLElement | null>(null);
-const isExpanded = ref(false);
+const isExpanded = ref<boolean>(false);
 
-const newReviewText = ref("");
-const newReviewRating = ref(5);
+const newReviewText = ref<string>("");
+const newReviewRating = ref<number>(5);
 
-const visibleReviews = computed(() => {
+const visibleReviews = computed<Review[]>(() => {
   return isExpanded.value ? reviews.value : reviews.value.slice(0, 3);
 });
 
-const arrowStyle = computed(() => ({
+const arrowStyle = computed<Record<string, string>>(() => ({
   transform: isExpanded.value ? "rotate(180deg)" : "rotate(0deg)",
   transition: "transform 0.5s ease",
 }));
 
-const submitReview = () => {
+const submitReview = (): void => {
   if (newReviewText.value.trim()) {
     addReview(newReviewText.value, newReviewRating.value);
     newReviewText.value = "";
@@ -115,7 +126,7 @@ const submitReview = () => {
   }
 };
 
-const handleToggle = async () => {
+const handleToggle = async (): Promise<void> => {
   if (isExpanded.value) {
     isExpanded.value = false;
     await nextTick();

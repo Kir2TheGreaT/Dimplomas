@@ -66,7 +66,7 @@ import ArrowDown from "./icons/arrow-down.vue";
 import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css";
 
-const cities = [
+const cities: string[] = [
   "Moscow",
   "London",
   "New York",
@@ -85,41 +85,69 @@ const cities = [
   "Istanbul",
 ];
 
+interface RentalData {
+  location: string;
+  date: string;
+  time: string;
+}
+
 const props = defineProps<{
   title: string;
-  data: {
-    location: string;
-    date: string;
-    time: string;
-  };
+  data: RentalData;
 }>();
-const emit = defineEmits(["update:date", "update:time", "update:location"]);
-onMounted(() => document.addEventListener("click", handleClickOutside));
-onUnmounted(() => document.removeEventListener("click", handleClickOutside));
 
-const isLocationOpen = ref(false);
+const emit = defineEmits<{
+  (e: "update:date", value: string): void;
+  (e: "update:time", value: string): void;
+  (e: "update:location", value: string): void;
+}>();
+
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
+
+const isLocationOpen = ref<boolean>(false);
 const locationRef = ref<HTMLElement | null>(null);
-const toggleLocation = () => {
+
+const toggleLocation = (): void => {
   isLocationOpen.value = !isLocationOpen.value;
 };
-const selectCity = (city: string) => {
+
+const selectCity = (city: string): void => {
   emit("update:location", city);
   isLocationOpen.value = false;
 };
-const handleClickOutside = (event: MouseEvent) => {
+
+const handleClickOutside = (event: MouseEvent): void => {
   if (locationRef.value && !locationRef.value.contains(event.target as Node)) {
     isLocationOpen.value = false;
   }
 };
-const localDate = ref(props.data.date);
-const localTime = ref(props.data.time);
-const openDatePicker = () => datePickerRef.value?.fp?.open();
-const openTimePicker = () => timePickerRef.value?.fp?.open();
 
-watch(localDate, (newDate) => {
+const localDate = ref<string>(props.data.date);
+const localTime = ref<string>(props.data.time);
+
+type FlatpickrInstance = {
+  fp?: {
+    open: () => void;
+  };
+};
+
+const datePickerRef = ref<FlatpickrInstance | null>(null);
+const timePickerRef = ref<FlatpickrInstance | null>(null);
+
+const openDatePicker = (): void => datePickerRef.value?.fp?.open();
+const openTimePicker = (): void => timePickerRef.value?.fp?.open();
+
+watch(localDate, (newDate: string) => {
   emit("update:date", newDate);
 });
-watch(localTime, (newTime) => {
+
+watch(localTime, (newTime: string) => {
   emit("update:time", newTime);
 });
 

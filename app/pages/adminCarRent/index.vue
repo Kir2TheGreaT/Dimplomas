@@ -27,6 +27,7 @@
 </template>
 
 <script lang="ts" setup>
+import { computed, inject, watch } from "vue";
 import AccDashboard from "~/components/accountPage/accDashboard.vue";
 import ProjectMap from "~/components/accountPage/project-map.vue";
 import PaymentAccountData from "~/components/accountPage/paymentAccountData.vue";
@@ -40,13 +41,25 @@ definePageMeta({
 });
 
 // сайдбар
-const sidebarContext = inject<any>("sidebarContext");
-const isSidebarOpen = computed(() => sidebarContext.isSidebarOpen.value);
-const closeSidebar = () => {
-  if (sidebarContext) sidebarContext.isSidebarOpen.value = false;
+interface SidebarContext {
+  isSidebarOpen: {
+    value: boolean;
+  };
+}
+
+const sidebarContext = inject<SidebarContext | null>("sidebarContext", null);
+
+const isSidebarOpen = computed<boolean>(
+  () => sidebarContext?.isSidebarOpen.value ?? false,
+);
+
+const closeSidebar = (): void => {
+  if (sidebarContext) {
+    sidebarContext.isSidebarOpen.value = false;
+  }
 };
 
-watch(isSidebarOpen, (value) => {
+watch(isSidebarOpen, (value: boolean) => {
   if (value && !isSidebarOpen.value) {
     document.body.style.overflow = "hidden";
   } else {

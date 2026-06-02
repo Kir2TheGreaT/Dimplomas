@@ -122,48 +122,67 @@ import Settings2 from "~/components/icons/headerIcons/settings2.vue";
 import Notification from "~/components/icons/headerIcons/notification.vue";
 import Heart_bold from "~/components/icons/cardsIcons/heart_bold.vue";
 import { useRouter, useRoute } from "vue-router";
-const router = useRouter();
 import { useFavorites } from "~/stores/favorites";
 import FavoritesDropdown from "./FavoritesDropdown.vue";
 import MenuIcon from "~/components/icons/headerIcons/menu-icon.vue";
 import { products } from "~~/data/products";
-import { ref, computed, inject, onMounted, onUnmounted, watch } from "vue";
+import {
+  ref,
+  computed,
+  inject,
+  onMounted,
+  onUnmounted,
+  watch,
+  type Ref,
+} from "vue";
+
+const router = useRouter();
 
 // Страница логина или АДмина
 const authCookie = useCookie<boolean>("auth-logged-in", {
   default: () => false,
 });
 
-const handleAuthNavigation = () => {
+const handleAuthNavigation = (): void => {
   if (authCookie.value) {
     router.push("/adminCarRent");
   } else {
     router.push("/loginPage");
   }
 };
-const goToProfile = () => handleAuthNavigation();
-const goAccount = () => handleAuthNavigation();
+
+const goToProfile = (): void => handleAuthNavigation();
+const goAccount = (): void => handleAuthNavigation();
+
 const isAuthenticated = useCookie<boolean>("auth-logged-in");
-const userAvatar = computed(() => {
+
+const userAvatar = computed<string>(() => {
   return isAuthenticated.value ? "/noImage.webp" : "/Image.svg";
 });
 
 // изменение хэдера на определенных страницах
 const route = useRoute();
-const isSpecial = computed(() => route.meta.isSpecialHeader === true);
+
+const isSpecial = computed<boolean>(() => route.meta.isSpecialHeader === true);
 
 // избранное
 const favoritesStore = useFavorites();
-const isFavoritesOpen = ref(false);
+const isFavoritesOpen = ref<boolean>(false);
 
-const goMain = () => {
-  router.push(`/`);
+const goMain = (): void => {
+  router.push("/");
 };
 
-const sidebarNav = inject("sidebarContext");
+interface SidebarContext {
+  toggleSidebar: () => void;
+  isSidebarOpen: Ref<boolean>;
+}
+
+const sidebarNav = inject<SidebarContext | undefined>("sidebarContext");
 
 // поиск в заголовке
-const searchQuery = ref("");
+const searchQuery = ref<string>("");
+
 const filteredProducts = computed(() => {
   if (!searchQuery.value) return [];
 
@@ -173,32 +192,38 @@ const filteredProducts = computed(() => {
       product.category.toLowerCase().includes(searchQuery.value.toLowerCase()),
   );
 });
+
 const searchInput = ref<HTMLInputElement | null>(null);
-const focusSearch = () => {
-  if (searchInput.value) {
-    searchInput.value.focus();
-  }
+
+const focusSearch = (): void => {
+  searchInput.value?.focus();
 };
 
-const searchContainer = ref<HTMLInputElement | null>(null);
-const dropdownStyle = ref({
+const searchContainer = ref<HTMLElement | null>(null);
+
+const dropdownStyle = ref<{
+  top: string;
+  left: string;
+  width: string;
+}>({
   top: "0px",
   left: "0px",
   width: "0px",
 });
 
-const updateDropdownPosition = () => {
+const updateDropdownPosition = (): void => {
   if (searchContainer.value) {
-    const reactive = searchContainer.value.getBoundingClientRect();
+    const rect = searchContainer.value.getBoundingClientRect();
+
     dropdownStyle.value = {
-      top: `${reactive.bottom + window.scrollY + 8}px`,
-      left: `${reactive.left + window.scrollX}px`,
-      width: `${reactive.width}px`,
+      top: `${rect.bottom + window.scrollY + 8}px`,
+      left: `${rect.left + window.scrollX}px`,
+      width: `${rect.width}px`,
     };
   }
 };
 
-watch(searchQuery, (value) => {
+watch(searchQuery, (value: string) => {
   if (value.length > 0) {
     setTimeout(updateDropdownPosition, 0);
   }
@@ -211,7 +236,9 @@ onMounted(() => {
   window.addEventListener("scroll", closeSearch, { passive: true });
   window.addEventListener("click", handleClickOutside);
   window.addEventListener("resize", updateWidth);
-  window.addEventListener("mousemove", handleMouseMove, { passive: true });
+  window.addEventListener("mousemove", handleMouseMove, {
+    passive: true,
+  });
 });
 
 onUnmounted(() => {
@@ -224,14 +251,14 @@ onUnmounted(() => {
 });
 
 // автозакрытие поиска
-const isDropdownVisible = ref(false);
+const isDropdownVisible = ref<boolean>(false);
 const dropdownRef = ref<HTMLElement | null>(null);
 
-const closeSearch = () => {
+const closeSearch = (): void => {
   isDropdownVisible.value = false;
 };
 
-const handleClickOutside = (event: MouseEvent) => {
+const handleClickOutside = (event: MouseEvent): void => {
   const target = event.target as HTMLElement;
 
   const clickInsideSearch = searchContainer.value?.contains(target);
@@ -242,7 +269,7 @@ const handleClickOutside = (event: MouseEvent) => {
   }
 };
 
-watch(searchQuery, (value) => {
+watch(searchQuery, (value: string) => {
   if (value.length > 0) {
     isDropdownVisible.value = true;
     setTimeout(updateDropdownPosition, 0);
@@ -251,38 +278,41 @@ watch(searchQuery, (value) => {
   }
 });
 
-const goCategory = () => {
-  router.push(`/categoryCarRent`);
+const goCategory = (): void => {
+  router.push("/categoryCarRent");
 };
 
 //Кнопки при наличии контента на мобильной версии
-const hasNotifications = ref(false);
-const hasSettingsAlert = ref(false);
+const hasNotifications = ref<boolean>(false);
+const hasSettingsAlert = ref<boolean>(false);
 
-const width = ref(0);
+const width = ref<number>(0);
 
-const updateWidth = () => {
+const updateWidth = (): void => {
   width.value = window.innerWidth;
 };
 
-const isDesktop = computed(() => width.value >= 950);
+const isDesktop = computed<boolean>(() => width.value >= 950);
+
 // позиционированние избранного
 const favoritesButton = ref<HTMLElement | null>(null);
 
 // машинка в хедере
-const carX = ref(0);
+const carX = ref<number>(0);
 const carWidth = 300;
-const handleMouseMove = (event: MouseEvent) => {
+
+const handleMouseMove = (event: MouseEvent): void => {
   if (width.value >= 1440) {
     const maxScroll = window.innerWidth - carWidth;
     const ratio = event.clientX / window.innerWidth;
     carX.value = ratio * maxScroll;
   }
 };
-// работа сайдбара
-const sidebarContext = inject<any>("sidebarContext");
 
-const handleHeaderClick = () => {
+// работа сайдбара
+const sidebarContext = inject<SidebarContext | undefined>("sidebarContext");
+
+const handleHeaderClick = (): void => {
   if (sidebarContext?.isSidebarOpen.value) {
     sidebarContext.isSidebarOpen.value = false;
   }

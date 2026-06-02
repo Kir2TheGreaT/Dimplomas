@@ -86,21 +86,22 @@ export interface Product {
   price: number;
   favorite: boolean;
 }
+
 import { products } from "~~/data/products.ts";
 import TickSquare from "./icons/tickSquare.vue";
 
 // массив категорий
-const typeCategories = computed(() => {
+const typeCategories = computed<{ type: string; count: number }[]>(() => {
   const map = new Map<string, number>();
-  products.forEach((p) => {
+  products.forEach((p: Product) => {
     map.set(p.category, (map.get(p.category) || 0) + 1);
   });
   return Array.from(map.entries()).map(([type, count]) => ({ type, count }));
 });
 
-const capacityCategories = computed(() => {
+const capacityCategories = computed<{ seats: number; count: number }[]>(() => {
   const map = new Map<number, number>();
-  products.forEach((p) => {
+  products.forEach((p: Product) => {
     map.set(p.seats, (map.get(p.seats) || 0) + 1);
   });
   return Array.from(map.entries())
@@ -109,18 +110,28 @@ const capacityCategories = computed(() => {
 });
 
 // полоса цены
-const maxPrice = ref(200);
-const fillWidth = computed(() => {
+const maxPrice = ref<number>(200);
+
+const fillWidth = computed<number>(() => {
   return (maxPrice.value / 200) * 100;
 });
 
 // отправка данных в родительский и категоризация
-const emit = defineEmits(["updateFilters"]);
+const emit = defineEmits<{
+  (
+    e: "updateFilters",
+    payload: {
+      types: string[];
+      capacities: number[];
+      price: number;
+    },
+  ): void;
+}>();
 
 const selectedTypes = ref<string[]>([]);
 const selectedCapacities = ref<number[]>([]);
 
-const toggleType = (type: string) => {
+const toggleType = (type: string): void => {
   if (selectedTypes.value.includes(type)) {
     selectedTypes.value = selectedTypes.value.filter((t) => t !== type);
   } else {
@@ -128,7 +139,7 @@ const toggleType = (type: string) => {
   }
 };
 
-const toggleCapacity = (seats: number | string) => {
+const toggleCapacity = (seats: number | string): void => {
   const s = Number(seats);
   const index = selectedCapacities.value.indexOf(s);
 

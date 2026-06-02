@@ -61,45 +61,50 @@ import { ref, computed, onMounted, onUnmounted } from "vue";
 import Star from "../icons/star.vue";
 import { usePaymentStore } from "@/stores/toast";
 
+type Product = {
+  id: number;
+  name: string;
+  image: string;
+  category: string;
+  gasoline: number;
+  drive: string;
+  seats: number;
+  price: number;
+  favorite: boolean;
+};
+
 const props = defineProps<{
-  product: {
-    id: number;
-    name: string;
-    image: string;
-    category: string;
-    gasoline: number;
-    drive: string;
-    seats: number;
-    price: number;
-    favorite: boolean;
-  };
+  product: Product;
 }>();
 
 // изменение текста в прайсе
-const screenWidth = ref(0);
+const screenWidth = ref<number>(0);
 
-const updateWidth = () => {
+const updateWidth = (): void => {
   screenWidth.value = window.innerWidth;
 };
+
 onMounted(() => {
   screenWidth.value = window.innerWidth;
-  window.addEventListener("resize", () => {
-    screenWidth.value = window.innerWidth;
-  });
+  window.addEventListener("resize", updateWidth);
 });
+
 onUnmounted(() => {
   window.removeEventListener("resize", updateWidth);
 });
-const totalText = computed(() =>
+
+const totalText = computed<string>(() =>
   screenWidth.value >= 1440
     ? "Overall price and includes rental discount"
     : "Overall price rental",
 );
+
 // промокод
 const toastStore = usePaymentStore();
-const promoCode = ref("");
-const isDiscountApplied = ref(false);
-const handleApplyPromo = (e: Event) => {
+const promoCode = ref<string>("");
+const isDiscountApplied = ref<boolean>(false);
+
+const handleApplyPromo = (e: Event): void => {
   e.preventDefault();
 
   if (promoCode.value.length === 5) {
@@ -114,7 +119,7 @@ const handleApplyPromo = (e: Event) => {
   }
 };
 
-const finalPrice = computed(() => {
+const finalPrice = computed<number>(() => {
   if (isDiscountApplied.value) {
     return props.product.price * 0.9;
   }

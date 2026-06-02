@@ -110,18 +110,26 @@
 import { ref } from "vue";
 import { usePaymentStore } from "@/stores/toast";
 
+interface User {
+  email: string;
+  password: string;
+  createdAt: number;
+}
+
 const router = useRouter();
 const toastStore = usePaymentStore();
 
-const email = ref("");
-const password = ref("");
-const confirmPassword = ref("");
+const email = ref<string>("");
+const password = ref<string>("");
+const confirmPassword = ref<string>("");
 
-const showPassword = ref(false);
+const showPassword = ref<boolean>(false);
 
-const emit = defineEmits(["switch-to-login"]);
+const emit = defineEmits<{
+  (e: "switch-to-login"): void;
+}>();
 
-const handleRegister = () => {
+const handleRegister = (): void => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   const normalizedEmail = email.value.trim().toLowerCase();
@@ -151,10 +159,12 @@ const handleRegister = () => {
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem("morent_users") || "[]");
+  const users: User[] = JSON.parse(
+    localStorage.getItem("morent_users") || "[]",
+  );
 
   const userExists = users.some(
-    (u: any) => u.email.toLowerCase() === normalizedEmail,
+    (u: User) => u.email.toLowerCase() === normalizedEmail,
   );
 
   if (userExists) {
@@ -166,7 +176,7 @@ const handleRegister = () => {
   }
 
   try {
-    const newUser = {
+    const newUser: User = {
       email: normalizedEmail,
       password: password.value,
       createdAt: Date.now(),

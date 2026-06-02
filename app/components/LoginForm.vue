@@ -58,16 +58,26 @@
 import { ref } from "vue";
 import { usePaymentStore } from "@/stores/toast";
 
+interface User {
+  email: string;
+  password: string;
+  createdAt: number;
+}
+
 const router = useRouter();
 const toastStore = usePaymentStore();
 
-const email = ref("");
-const password = ref("");
-const isAuthenticated = useCookie("auth-logged-in");
+const email = ref<string>("");
+const password = ref<string>("");
 
-defineEmits(["switch-to-register"]);
+const isAuthenticated = useCookie<string>("auth-logged-in");
+
+defineEmits<{
+  (e: "switch-to-register"): void;
+}>();
+
 // логика формы входа
-const handleLogin = () => {
+const handleLogin = (): void => {
   const emailReg = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailReg.test(email.value)) {
@@ -80,9 +90,12 @@ const handleLogin = () => {
     return;
   }
 
-  const users = JSON.parse(localStorage.getItem("morent_users") || "[]");
+  const users: User[] = JSON.parse(
+    localStorage.getItem("morent_users") || "[]",
+  );
+
   const validUser = users.find(
-    (u: any) => u.email === email.value && u.password === password.value,
+    (u: User) => u.email === email.value && u.password === password.value,
   );
 
   if (validUser) {

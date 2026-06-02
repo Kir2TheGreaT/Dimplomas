@@ -86,15 +86,17 @@ import AddCars from "~/components/Add-cars.vue";
 import ButtonRental from "~/components/Button-rental.vue";
 import { products } from "~~/data/products.ts";
 import type { Product } from "~~/data/products.ts";
+
 const router = useRouter();
+
 const props = defineProps<{
   carousel?: boolean;
   maxVisible?: number;
   product?: Product;
 }>();
 
-const goCategory = () => {
-  router.push(`/categoryCarRent`);
+const goCategory = (): void => {
+  router.push("/categoryCarRent");
 };
 
 // рендер карточек
@@ -103,21 +105,23 @@ const popularProducts = computed<Product[]>(() => {
 });
 
 //переключение виджетов
-const isSwitched = ref(false);
-const switchToggle = () => {
+const isSwitched = ref<boolean>(false);
+
+const switchToggle = (): void => {
   isSwitched.value = !isSwitched.value;
 };
 
 // ширина экрана
-const isWideScreen = ref(false);
-const screenWidth = ref(0);
+const isWideScreen = ref<boolean>(false);
+const screenWidth = ref<number>(0);
 
 onMounted(() => {
   checkScreenWidth();
   window.addEventListener("resize", checkScreenWidth);
 });
+
 // Карточки рекомендованных
-const maxRecommendationCards = computed(() => {
+const maxRecommendationCards = computed<number>(() => {
   if (screenWidth.value >= 1440) return 12;
   if (screenWidth.value >= 1280) return 7;
   if (screenWidth.value >= 768) return 6;
@@ -125,11 +129,13 @@ const maxRecommendationCards = computed(() => {
 });
 
 // карточки адаптив
-const isCarouselPopular = computed(() => screenWidth.value < 1440);
-const isCarouselRecommendation = computed(() => screenWidth.value >= 768);
+const isCarouselPopular = computed<boolean>(() => screenWidth.value < 1440);
+const isCarouselRecommendation = computed<boolean>(
+  () => screenWidth.value >= 768,
+);
 
 // ресайз от экрана
-const checkScreenWidth = () => {
+const checkScreenWidth = (): void => {
   screenWidth.value = window.innerWidth;
   isWideScreen.value = screenWidth.value >= 760;
 };
@@ -138,43 +144,67 @@ const addsCars = computed(() => ({
   addsCars: true,
   addsCarsFlex: isWideScreen.value,
 }));
+
 // карточки подсчет до нажатия ALL
-const wideScreenQuantityCards = computed(() => {
+const wideScreenQuantityCards = computed<number>(() => {
   if (screenWidth.value >= 1440) return 4;
   return 6;
 });
 
 // вычисление анимации
-const pickUpRef = ref(null);
-const dropOffRef = ref(null);
-const dist = reactive({ x: 0, y: 0 });
+type ComponentWithEl = {
+  $el?: HTMLElement;
+};
 
-const calculateDistance = () => {
-  const el1 = pickUpRef.value?.$el || pickUpRef.value;
-  const el2 = dropOffRef.value?.$el || dropOffRef.value;
+const pickUpRef = ref<ComponentWithEl | HTMLElement | null>(null);
+const dropOffRef = ref<ComponentWithEl | HTMLElement | null>(null);
+
+const dist = reactive<{
+  x: number;
+  y: number;
+}>({
+  x: 0,
+  y: 0,
+});
+
+const calculateDistance = (): void => {
+  const el1 =
+    pickUpRef.value && "$el" in pickUpRef.value
+      ? pickUpRef.value.$el
+      : pickUpRef.value;
+
+  const el2 =
+    dropOffRef.value && "$el" in dropOffRef.value
+      ? dropOffRef.value.$el
+      : dropOffRef.value;
+
   if (el1 && el2) {
     dist.x = el2.offsetLeft - el1.offsetLeft;
     dist.y = el2.offsetTop - el1.offsetTop;
   }
 };
-const pickUpStyle = computed(() =>
+
+const pickUpStyle = computed<Record<string, string>>(() =>
   isSwitched.value
     ? { transform: `translate(${dist.x}px, ${dist.y}px)` }
     : { transform: "none" },
 );
-const dropOffStyle = computed(() =>
+
+const dropOffStyle = computed<Record<string, string>>(() =>
   isSwitched.value
     ? { transform: `translate(${-dist.x}px, ${-dist.y}px)` }
     : { transform: "none" },
 );
 
 //
-const onResize = () => {
+const onResize = (): void => {
   checkScreenWidth();
   calculateDistance();
 };
+
 onMounted(() => {
   window.addEventListener("resize", onResize);
+
   nextTick(() => {
     checkScreenWidth();
     calculateDistance();
@@ -187,19 +217,22 @@ onUnmounted(() => {
 
 //кнопка больше машин
 
-const extraCarsCount = ref(0);
-const isAllShown = computed(() => {
+const extraCarsCount = ref<number>(0);
+
+const isAllShown = computed<boolean>(() => {
   return recommendationProducts.value.length >= products.length;
 });
-const buttonLabel = computed(() => {
+
+const buttonLabel = computed<string>(() => {
   return isAllShown.value ? "Show Start" : "Show More Car";
 });
+
 const recommendationProducts = computed<Product[]>(() => {
   const totalToShow = maxRecommendationCards.value + extraCarsCount.value;
   return products.slice(0, totalToShow);
 });
 
-const showMoreCars = () => {
+const showMoreCars = (): void => {
   if (isAllShown.value) {
     extraCarsCount.value = 9;
   } else {

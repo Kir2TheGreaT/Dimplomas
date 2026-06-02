@@ -64,14 +64,52 @@ const props = defineProps<{
   isOpen: boolean;
   anchor: HTMLElement | null;
 }>();
+
+const emit = defineEmits(["close"]);
 const router = useRouter();
 
 const goSummary = (id: number) => {
   router.push(`/paymentCarRent/${id}`);
 };
 
-// закрытие элемента
 const dropdownRef = ref<HTMLElement | null>(null);
+const favoritesCar = useFavorites();
+
+const favoritesProducts = computed(() => {
+  return products.filter((product) =>
+    favoritesCar.favoritesIds.includes(Number(product.id)),
+  );
+});
+
+const totalPrice = computed(() => {
+  return favoritesProducts.value.reduce((sum, item) => sum + item.price, 0);
+});
+
+const removeItem = (id: number) => {
+  favoritesCar.toggleFavorite(id);
+};
+
+const isConfirming = ref(false);
+let confirmTimer: ReturnType<typeof setTimeout> | null = null;
+
+const handleClearAll = () => {
+  if (!isConfirming.value) {
+    isConfirming.value = true;
+
+    confirmTimer = setTimeout(() => {
+      isConfirming.value = false;
+    }, 3000);
+  } else {
+    favoritesCar.favoritesIds = [];
+    isConfirming.value = false;
+
+    if (confirmTimer) {
+      clearTimeout(confirmTimer);
+      confirmTimer = null;
+    }
+  }
+};
+
 const handleClickOutside = (event: MouseEvent) => {
   if (
     props.isOpen &&
@@ -80,6 +118,39 @@ const handleClickOutside = (event: MouseEvent) => {
   ) {
     emit("close");
   }
+};
+
+const handleScroll = () => {
+  if (props.isOpen) {
+    emit("close");
+  }
+};
+
+const dropdownStyle = ref({
+  top: "0px",
+  left: "0px",
+});
+
+const updatePosition = () => {
+  if (!props.isOpen || !props.anchor) return;
+
+  const dropdownWidth = 325;
+  const padding = 16;
+
+  const rect = props.anchor.getBoundingClientRect();
+
+  let left = rect.right - dropdownWidth;
+
+  if (left < padding) left = padding;
+
+  if (left + dropdownWidth > window.innerWidth - padding) {
+    left = window.innerWidth - dropdownWidth - padding;
+  }
+
+  dropdownStyle.value = {
+    top: `${rect.bottom + window.scrollY + 8}px`,
+    left: `${left}px`,
+  };
 };
 
 onMounted(() => {
@@ -91,77 +162,19 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("mousedown", handleClickOutside);
   window.removeEventListener("scroll", handleScroll);
-  window.removeEventListener("scroll", updatePosition);
+  window.removeEventListener("resize", updatePosition);
+
+  if (confirmTimer) {
+    clearTimeout(confirmTimer);
+  }
 });
 
-const handleScroll = () => {
-  if (props.isOpen) {
-    emit("close");
-  }
-};
-
-// создание частей элемента
-const emit = defineEmits(["close"]);
-const favoritesCar = useFavorites();
-const totalPrice = computed(() => {
-  return favoritesProducts.value.reduce((sum, item) => sum + item.price, 0);
-});
-
-const isConfirming = ref(false);
-let confirmTimer: ReturnType<typeof setTimeout> | null = null;
-
-const handleClearAll = () => {
-  if (!isConfirming.value) {
-    isConfirming.value = true;
-    confirmTimer = setTimeout(() => {
-      isConfirming.value = false;
-    }, 3000);
-  } else {
-    favoritesCar.favoritesIds = [];
-    isConfirming.value = false;
-    if (confirmTimer) clearTimeout(confirmTimer);
-  }
-};
-
-const favoritesProducts = computed(() => {
-  return products.filter((product) =>
-    favoritesCar.favoritesIds.includes(Number(product.id)),
-  );
-});
-
-const removeItem = (id: number) => {
-  favoritesCar.toggleFavorite(id);
-};
-
-// позиционирование
-const dropdownStyle = ref({
-  top: "0px",
-  left: "0px",
-});
-
-const updatePosition = () => {
-  if (!props.anchor || !props.isOpen) return;
-  const dropdownWidth = 325;
-  const padding = 16;
-
-  const rect = props.anchor.getBoundingClientRect();
-  let left = rect.right - dropdownWidth;
-  if (left < padding) {
-    left = padding;
-  }
-  if (left + dropdownWidth > window.innerWidth - padding) {
-    left = window.innerWidth - dropdownWidth - padding;
-  }
-  dropdownStyle.value = {
-    top: `${rect.bottom + window.scrollY + 8}px`,
-    left: `${left}px`,
-  };
-};
 watch(
   () => props.isOpen,
-  (val) => {
+  async (val) => {
     if (val) {
-      nextTick(updatePosition);
+      await nextTick();
+      updatePosition();
     }
   },
 );

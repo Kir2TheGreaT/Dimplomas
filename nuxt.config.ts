@@ -16,7 +16,6 @@ export default defineNuxtConfig({
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
     "vue-yandex-maps/nuxt",
-    "@nuxt/fonts",
   ],
   yandexMaps: {
     apikey: "NUXT_PUBLIC_YANDEX_MAPS_APIKEY",

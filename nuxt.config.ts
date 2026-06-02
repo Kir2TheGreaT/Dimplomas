@@ -13,7 +13,7 @@ export default defineNuxtConfig({
     "@nuxt/image",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
-    "vue-yandex-maps/nuxt",
+    // "vue-yandex-maps/nuxt",
     "@nuxt/fonts",
   ],
 
@@ -49,13 +49,13 @@ export default defineNuxtConfig({
   },
 
   // ==================== YANDEX MAPS ====================
-  yandexMaps: {
-    apikey: process.env.NUXT_PUBLIC_YANDEX_MAPS_APIKEY,
-    lang: "ru_RU",
-    version: "v3",
-    initializeOn: "onPluginInit",
-    ssr: false,
-  },
+  // yandexMaps: {
+  //   apikey: process.env.NUXT_PUBLIC_YANDEX_MAPS_APIKEY,
+  //   lang: "ru_RU",
+  //   version: "v3",
+  //   initializeOn: "onPluginInit",
+  //   ssr: false,
+  // },
 
   vite: {
     server: {

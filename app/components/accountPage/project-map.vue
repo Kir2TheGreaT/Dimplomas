@@ -4,6 +4,20 @@
     <div v-if="!yandexMapIsLoaded" class="fakeMap">
       <img src="/maps/Maps.png" alt="" />
     </div>
+
+    <YandexMap
+      v-if="yandexMapIsLoaded"
+      :settings="{
+        location: {
+          center: center,
+          zoom: zoom,
+        },
+      }"
+      style="width: 100%; height: 400px"
+    >
+      <YandexMapDefaultSchemeLayer />
+      <YandexMapDefaultFeaturesLayer />
+    </YandexMap>
   </div>
 </template>
 

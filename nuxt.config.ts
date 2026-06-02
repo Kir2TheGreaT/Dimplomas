@@ -1,43 +1,47 @@
+// https://nuxt.com/docs/api/configuration/nuxt-config
 export default defineNuxtConfig({
   compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
-
   app: {
-    pageTransition: { name: "page", mode: "out-in" },
+    pageTransition: {
+      name: "page",
+      mode: "out-in",
+    },
     layoutTransition: { name: "layout", mode: "out-in" },
   },
-
   css: ["./app/assets/css/main.css", "./app/assets/css/theme.css"],
 
   modules: [
     "@nuxt/image",
     "@pinia/nuxt",
     "pinia-plugin-persistedstate/nuxt",
-    // "vue-yandex-maps/nuxt",
+    "vue-yandex-maps/nuxt",
     "@nuxt/fonts",
   ],
+  yandexMaps: {
+    apikey: "NUXT_PUBLIC_YANDEX_MAPS_APIKEY",
+    lang: "ru_RU",
+    version: "v3",
+    initializeOn: "onPluginInit",
+  },
 
-  // ==================== FONTS ====================
   fonts: {
-    provider: "google",
     defaults: {
       weights: [400, 700],
       styles: ["normal", "italic"],
-      subsets: ["cyrillic-ext", "cyrillic", "latin"],
+      subsets: ["cyrillic-ext", "cyrillic", "latin-ext", "latin"],
     },
     families: [
       {
         name: "Plus Jakarta Sans",
         provider: "google",
-        weights: [400, 500, 600, 700],
       },
     ],
   },
 
-  // ==================== IMAGE ====================
   image: {
     quality: 80,
-    format: ["webp", "avif"],
+    format: ["webp"],
     screens: {
       sm: 640,
       md: 768,
@@ -46,22 +50,5 @@ export default defineNuxtConfig({
       "2xl": 1536,
     },
     domains: ["unsplash.com"],
-  },
-
-  // ==================== YANDEX MAPS ====================
-  // yandexMaps: {
-  //   apikey: process.env.NUXT_PUBLIC_YANDEX_MAPS_APIKEY,
-  //   lang: "ru_RU",
-  //   version: "v3",
-  //   initializeOn: "onPluginInit",
-  //   ssr: false,
-  // },
-
-  vite: {
-    server: {
-      watch: {
-        usePolling: true,
-      },
-    },
   },
 });

@@ -5,7 +5,7 @@
       <img src="/maps/Maps.png" alt="" />
     </div>
 
-    <!-- <YandexMap
+    <YandexMap
       v-if="yandexMapIsLoaded"
       :settings="{
         location: {
@@ -17,7 +17,7 @@
     >
       <YandexMapDefaultSchemeLayer />
       <YandexMapDefaultFeaturesLayer />
-    </YandexMap> -->
+    </YandexMap>
   </div>
 </template>
 
